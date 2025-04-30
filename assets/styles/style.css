@@ -15,6 +15,13 @@ body {
     font-family: 'CustomFont', sans-serif;
     transition: background-color 0.3s ease;
     cursor: url('../media/cursor-light.cur'), auto;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 /* Component styles */
@@ -30,6 +37,10 @@ body {
     position: relative;
     width: 60px;
     height: 34px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .theme-switch input {
@@ -47,6 +58,8 @@ body {
     bottom: 0;
     background-color: #ccc;
     transition: .4s;
+    -webkit-transition: .4s;
+    -moz-transition: .4s;
     border-radius: 34px;
 }
 
@@ -59,6 +72,8 @@ body {
     bottom: 4px;
     background-color: white;
     transition: .4s;
+    -webkit-transition: .4s;
+    -moz-transition: .4s;
     border-radius: 50%;
 }
 
@@ -68,6 +83,8 @@ input:checked + .slider {
 
 input:checked + .slider:before {
     transform: translateX(26px);
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
 }
 
 /* Main card */
@@ -109,6 +126,13 @@ input:checked + .slider:before {
     font-size: 1rem;
     color: #666;
     transition: color 0.3s ease;
+}
+
+.card * {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
 }
 
 /* Views counter */
@@ -187,6 +211,11 @@ input:checked + .slider:before {
 .copyright-card a {
     color: #00008B;
     text-decoration: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 139, 0.2);
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
 }
 
 .copyright-card a:hover {
@@ -239,6 +268,8 @@ input:checked + .slider:before {
     padding: 8px;
     border-radius: 12px;
     transition: background-color 0.3s ease;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .voicebox button:hover {
@@ -383,5 +414,24 @@ copyright-trigger:hover .arrow-down {
         width: 200px;
         height: 200px;
         opacity: 0;
+    }
+}
+
+/* Remove highlight for all links except source */
+a {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+@supports not ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
+    #entry-screen {
+        background: rgba(255, 255, 255, 0.95);
+    }
+    
+    .dark-mode #entry-screen {
+        background: rgba(0, 0, 0, 0.95);
     }
 }
