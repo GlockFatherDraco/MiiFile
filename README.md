@@ -7,7 +7,7 @@
 -----
 # ✨ Features:
 Light And Dark mode
-| ![Dark](https://imgur.com/a/NaNXiPC) | ![Light](https://imgur.com/a/LKYy7xN) |
-|---------------------------|---------------------------|
+![img](https://imgur.com/a/NaNXiPC)
+![img](https://imgur.com/a/LKYy7xN)
 -----
 [Preview](https://glockfatherdraco.github.io/gfd/)
