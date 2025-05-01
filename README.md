@@ -3,9 +3,9 @@
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 -----
-# This project is  inspired by [guns.lol](https://guns.lol)
+## This project is  inspired by [guns.lol](https://guns.lol)
 -----
-# ✨ Features:
+## __✨ Features:__
 Light And Dark mode
 | ![Image 1](https://i.imgur.com/lPPgJL8.png) | ![Image 2](https://i.imgur.com/uUJdfK6.png) |
 |:---:|:---:|
