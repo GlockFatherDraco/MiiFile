@@ -11,4 +11,4 @@ Light And Dark mode
 |:---:|:---:|
 | Light mode | Dark mode |
 -----
-[Preview](https://glockfatherdraco.github.io/gfd/)
+[Preview](https://glockfatherdraco.github.io/MinimalisticPortfolio/)
