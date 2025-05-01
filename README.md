@@ -6,3 +6,8 @@
 # This project is  inspired by [guns.lol](https://guns.lol)
 -----
 # ✨ Features:
+Light And Dark mode
+| ![Dark](https://imgur.com/a/NaNXiPC) | ![Light](https://imgur.com/a/LKYy7xN) |
+|---------------------------|---------------------------|
+-----
+[Preview](https://glockfatherdraco.github.io/gfd/)
