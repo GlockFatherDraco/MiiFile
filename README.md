@@ -5,10 +5,13 @@
 -----
 ## This project is  inspired by [guns.lol](https://guns.lol)
 -----
-## __✨ Features:__
+## ✨ Features:
+
 Light And Dark mode
 | ![Image 1](https://i.imgur.com/lPPgJL8.png) | ![Image 2](https://i.imgur.com/uUJdfK6.png) |
 |:---:|:---:|
 | Light mode | Dark mode |
+
+
 -----
 [Preview](https://glockfatherdraco.github.io/MinimalisticPortfolio/)
