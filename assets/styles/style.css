@@ -1,0 +1,523 @@
+/* Font imports */
+@font-face {
+    font-family: 'CustomFont';
+    src: url('../fonts/font.ttf') format('truetype');
+}
+
+/* Base styles */
+:root {
+    --primary-color: #66bb6a;
+    --text-color: #333;
+    --text-color-light: #666;
+    --bg-color: #f0f0f0;
+    --card-bg: white;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --link-color: #00008B;
+    --link-hover-color: #4169E1;
+    --transition-standard: 0.3s ease;
+    --card-radius: 24px;
+}
+
+.dark-mode {
+    --text-color: #fff;
+    --text-color-light: #aaa;
+    --bg-color: #222;
+    --card-bg: #333;
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    --link-color: #4169E1;
+    --link-hover-color: #6495ED;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: var(--bg-color);
+    font-family: 'CustomFont', sans-serif;
+    transition: background-color var(--transition-standard);
+    cursor: url('../media/cursors/cursor-light.cur'), auto;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* Component styles */
+/* Theme switch */
+.theme-switch-wrapper {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+
+.theme-switch {
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    height: 34px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: var(--transition-standard);
+    -webkit-transition: var(--transition-standard);
+    -moz-transition: var(--transition-standard);
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: var(--transition-standard);
+    -webkit-transition: var(--transition-standard);
+    -moz-transition: var(--transition-standard);
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--primary-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+}
+
+/* Main card */
+.card {
+    position: relative;
+    background-color: var(--card-bg);
+    border-radius: var(--card-radius);
+    box-shadow: 0 4px 8px var(--shadow-color);
+    padding: 20px;
+    text-align: center;
+    width: 300px;
+    transition: all var(--transition-standard);
+    padding-bottom: 60px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.card img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    transition: transform var(--transition-standard);
+}
+
+.card img:hover {
+    transform: scale(1.1);
+}
+
+.card h1 {
+    font-size: 1.5rem;
+    margin: 0.625rem 0;
+    transition: color var(--transition-standard);
+    color: var(--text-color);
+}
+
+.card p {
+    font-size: 1rem;
+    color: var(--text-color-light);
+    transition: color var(--transition-standard);
+}
+
+.card * {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+}
+
+/* Views counter */
+.views-counter {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.875rem;
+    color: var(--text-color-light);
+    opacity: 0.7;
+}
+
+.view-icon {
+    width: 16px !important;
+    height: 16px !important;
+    object-fit: contain;
+}
+
+/* Copyright section */
+.copyright-trigger {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+}
+
+.arrow-down {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid var(--text-color-light);
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: all var(--transition-standard);
+    position: relative;
+    left: 0;
+    opacity: 0.7;
+    animation: bounce 2s infinite;
+}
+
+.arrow-down:hover {
+    animation: wiggle 0.5s ease-in-out;
+    opacity: 1;
+}
+
+.copyright-trigger:hover .arrow-down {
+    animation: none;
+    transform: translateY(-5px) rotate(180deg);
+}
+
+.copyright-card {
+    background-color: var(--card-bg);
+    border-radius: var(--card-radius);
+    box-shadow: 0 4px 8px var(--shadow-color);
+    padding: 20px;
+    width: 300px;
+    height: 60px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+}
+
+.copyright-card a {
+    color: var(--link-color);
+    text-decoration: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 139, 0.2);
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+.copyright-card a:hover {
+    text-decoration: underline;
+    color: var(--link-hover-color);
+}
+
+/* Entry screen */
+#entry-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.8s ease-in-out;
+}
+
+.entry-text {
+    font-size: 2rem;
+    color: var(--text-color);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1.5s ease-out forwards;
+    cursor: pointer;
+}
+
+/* Voicebox styles */
+.voicebox {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 2px 4px var(--shadow-color);
+    transition: all var(--transition-standard);
+}
+
+.voicebox button {
+    width: 34px;
+    height: 34px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 12px;
+    transition: background-color var(--transition-standard);
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.voicebox button:hover {
+    background-color: #f0f0f0;
+}
+
+.voicebox img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.dark-mode .voicebox {
+    background-color: var(--card-bg);
+    box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.dark-mode .voicebox button:hover {
+    background-color: #444;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: var(--bg-color);
+    cursor: url('../media/cursors/cursor-dark.cur'), auto;
+}
+
+.dark-mode .card {
+    background-color: var(--card-bg);
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+.dark-mode .card h1 {
+    color: var(--text-color);
+}
+
+.dark-mode .card p {
+    color: var(--text-color-light);
+}
+
+.dark-mode .views-counter {
+    color: var(--text-color-light);
+}
+
+.dark-mode .copyright-card {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
+.dark-mode .arrow-down {
+    border-top-color: var(--text-color-light);
+}
+
+.dark-mode .copyright-card a {
+    color: var(--link-color);
+}
+
+.dark-mode #entry-screen {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.dark-mode .entry-text {
+    color: var(--text-color);
+}
+
+/* Hover effects */
+.arrow-down:hover {
+    opacity: 1;
+}
+
+.copyright-trigger:hover .copyright-card {
+    opacity: 0.9;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+copyright-trigger:hover .arrow-down {
+    transform: translateY(-5px);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes wiggle {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-3px);
+    }
+    75% {
+        transform: translateX(3px);
+    }
+}
+
+/* States */
+#entry-screen.hidden {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    pointer-events: none;
+}
+
+/* Click effect */
+.click-effect {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    background: rgba(255, 255, 255, 0.4);
+    transform: translate(-50%, -50%);
+    animation: clickEffect 0.5s ease-out;
+}
+
+.dark-mode .click-effect {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+@keyframes clickEffect {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 0.5;
+    }
+    100% {
+        width: 200px;
+        height: 200px;
+        opacity: 0;
+    }
+}
+
+/* Remove highlight for all links except source */
+a {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Performance optimizations for animations */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Enhanced accessibility */
+.theme-switch:focus-within .slider,
+.voicebox button:focus-visible,
+.copyright-card a:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+@media (hover: hover) {
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .copyright-trigger:hover .copyright-card {
+        opacity: 0.9;
+        transform: translateY(0);
+    }
+}
+
+/* Print styles */
+@media print {
+    .theme-switch-wrapper,
+    .voicebox,
+    .copyright-trigger,
+    #entry-screen {
+        display: none !important;
+    }
+
+    .card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+
+    body {
+        background: none;
+    }
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+    .card,
+    .copyright-card {
+        border: 1px solid CanvasText;
+    }
+
+    .slider {
+        border: 1px solid CanvasText;
+    }
+}
+
+@supports not ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
+    #entry-screen {
+        background: rgba(255, 255, 255, 0.95);
+    }
+    
+    .dark-mode #entry-screen {
+        background: rgba(0, 0, 0, 0.95);
+    }
+}
