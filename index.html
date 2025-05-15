@@ -2,61 +2,103 @@
 <html lang="en" translate="no">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="GlockFatherDraco - Content Creator & Developer Portfolio">
-    <meta name="keywords" content="portfolio, developer, content creator">
+    <meta name="keywords" content="portfolio, developer, content creator, web development">
     <meta name="author" content="GlockFatherDraco">
+    
+    <!-- Open Graph / Social Media -->
     <meta property="og:title" content="GlockFatherDraco's Portfolio">
     <meta property="og:description" content="Content Creator & Developer Portfolio">
     <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/media/icons/icon-512x512.png">
+    
+    <!-- Theme -->
     <meta name="theme-color" content="#66bb6a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
     <title>GlockFatherDraco</title>
-    <link rel="stylesheet" href="assets/styles/style.css">
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="assets/styles/style.css" as="style">
     <link rel="preload" href="assets/fonts/font.ttf" as="font" type="font/ttf" crossorigin>
-    <link rel="preload" href="assets/music/music.ogg" as="audio">
+    <link rel="preload" href="assets/scripts/main.js" as="script">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/styles/style.css">
+    
+    <!-- PWA support -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/media/icons/icon-192x192.png">
+    <link rel="apple-touch-icon" href="assets/media/icons/icon-192x192.png">
+    
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="https://github.com">
 </head>
 <body>
-    <div id="entry-screen">
+    <!-- Entry screen -->
+    <div id="entry-screen" role="dialog" aria-label="Welcome screen" tabindex="0">
         <span class="entry-text">click to enter...</span>
     </div>
 
-    <!-- Theme switcher -->
-    <nav class="theme-switch-wrapper">
-        <label class="theme-switch">
-            <input type="checkbox" id="checkbox">
-            <div class="slider"></div>
-        </label>
-    </nav>
+    <!-- Header with controls -->
+    <header>
+        <!-- Theme switcher -->
+        <nav class="theme-switch-wrapper" aria-label="Theme switcher">
+            <label class="theme-switch" for="checkbox">
+                <input type="checkbox" id="checkbox" aria-label="Toggle dark mode">
+                <div class="slider" role="switch" aria-checked="false"></div>
+            </label>
+        </nav>
 
-    <!-- Audio control -->
-    <div class="voicebox">
-        <button id="muteButton">
-            <img src="assets/media/voice/unmute.svg" alt="Mute/Unmute" id="muteIcon" draggable="false">
-        </button>
-    </div>
-
-    <!-- Profile card -->
-    <main class="card">
-        <img src="assets/media/profile/profile.png" alt="A profile image of Your Name" class="profile-image" draggable="false">
-        <h1>GlockFatherDraco</h1>
-        <p>A content creator & developer</p>
-        <div class="views-counter">
-            <img src="assets/media/views/view.svg" alt="views" class="view-icon" draggable="false">
-            <span id="view-count">0</span>
+        <!-- Audio control -->
+        <div class="voicebox">
+            <button id="muteButton" aria-label="Toggle audio">
+                <img src="assets/media/voice/unmute.svg" alt="Mute/Unmute" id="muteIcon" draggable="false" width="18" height="18">
+            </button>
         </div>
+    </header>
+
+    <!-- Main content -->
+    <main>
+        <section class="card" aria-label="Profile card">
+            <img src="assets/media/profile/profile.png" alt="Profile" class="profile-image" loading="lazy" draggable="false" width="100" height="100">
+            <h1>GlockFatherDraco</h1>
+            <p>A content creator & developer</p>
+            <div class="views-counter" aria-live="polite">
+                <img src="assets/media/views/view.svg" alt="" class="view-icon" draggable="false" width="16" height="16" aria-hidden="true">
+                <span id="view-count">0</span>
+            </div>
+        </section>
     </main>
 
-    <div class="copyright-trigger">
-        <div class="arrow-down"></div>
-        <div class="copyright-card">
-            <p>©<span id="copyright-year"></span> | Check Readme.md | <a href="https://github.com/GlockFatherDraco/gfd">Source</a></p>
+    <!-- Footer -->
+    <footer class="copyright-trigger">
+        <div class="arrow-container" id="copyrightToggle" aria-label="Toggle copyright information" tabindex="0" role="button" aria-expanded="false" aria-controls="copyrightCard">
+            <div class="arrow-down"></div>
         </div>
-    </div>
+        <div class="copyright-card" id="copyrightCard" aria-hidden="true">
+            <p>©<span id="copyright-year"></span> • Check Readme.md • <a href="https://github.com/GlockFatherDraco/gfd" rel="noopener noreferrer">Source</a></p>
+        </div>
+    </footer>
 
-    <audio id="bgMusic" loop>
+    <!-- Audio -->
+    <audio id="bgMusic" loop preload="metadata">
         <source src="assets/music/music.ogg" type="audio/ogg">
     </audio>
 
-    <script src="assets/scripts/main.js"></script>
+    <!-- Scripts -->
+    <script defer src="assets/scripts/main.js"></script>
+    <script>
+        // Register service worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./assets/scripts/service-worker.js')
+                    .catch(err => console.warn('SW registration failed:', err));
+            });
+        }
+    </script>
 </body>
 </html>
