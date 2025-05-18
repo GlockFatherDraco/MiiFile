@@ -19,7 +19,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
-    <title>GlockFatherDraco</title>
+    <title>@</title>
     
     <!-- Preload critical assets -->
     <link rel="preload" href="assets/styles/style.css" as="style">
@@ -58,6 +58,10 @@
             <button id="muteButton" aria-label="Toggle audio">
                 <img src="assets/media/voice/unmute.svg" alt="Mute/Unmute" id="muteIcon" draggable="false" width="18" height="18">
             </button>
+            <div class="volume-control-card" id="volumeCard">
+                <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="50" step="1" aria-label="Volume control">
+                <img src="assets/media/voice/mute.svg" alt="" class="mute-overlay" id="muteOverlay" draggable="false" width="18" height="18">
+            </div>
         </div>
     </header>
 
