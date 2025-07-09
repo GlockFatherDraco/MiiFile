@@ -1,0 +1,55 @@
+/* ┌─────────────┐
+   │ Card Comp   │
+   └─────────────┘ */
+.crd{
+  background:var(--cbg);
+  border-radius:20px;
+  padding:40px;
+  box-shadow:var(--sh);
+  text-align:center;
+  max-width:400px;
+  width:100%;
+  border:1px solid var(--bd);
+  transition:all .3s;
+}
+.crd:hover{transform:translateY(-5px);box-shadow:0 20px 40px rgba(0,0,0,.1)}
+/* ┌─────────────┐
+   │ Img Comp    │
+   └─────────────┘ */
+.img-cnt{margin-bottom:24px}
+.img{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  object-fit:cover;
+  border:4px solid var(--bd);
+  transition:border-color .3s;
+}
+.img:hover{border-color:var(--tx2)}
+/* ┌─────────────┐
+   │ Name/Bio    │
+   └─────────────┘ */
+.nm{
+  font-size:2rem;
+  font-weight:700;
+  margin-bottom:16px;
+  color:var(--tx);
+  transition:color .3s;
+}
+.bio{
+  font-size:1.1rem;
+  color:var(--tx2);
+  line-height:1.6;
+  transition:color .3s;
+}
+@media(max-width:480px){
+  .crd{padding:30px 20px}
+  .img{width:100px;height:100px}
+  .nm{font-size:1.75rem}
+  .bio{font-size:1rem}
+}
+@media(max-width:320px){
+  .crd{padding:24px 16px}
+  .img{width:80px;height:80px}
+  .nm{font-size:1.5rem}
+} 

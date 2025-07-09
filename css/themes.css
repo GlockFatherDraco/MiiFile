@@ -1,0 +1,19 @@
+/* ┌─────────────┐
+   │ Theme Vars  │
+   └─────────────┘ */
+[data-theme="dark"]{
+  --bg:#1a1a1a;
+  --cbg:#2d2d2d;
+  --tx:#fff;
+  --tx2:#b0b0b0;
+  --bd:#404040;
+  --sh:0 10px 30px rgba(0,0,0,.3);
+  --tglbg:#2d2d2d;
+  --tglbd:#404040;
+}
+/* ┌─────────────┐
+   │ Transitions │
+   └─────────────┘ */
+body,.crd,.img,.nm,.bio{transition:all .3s}
+[data-theme="dark"] .crd{box-shadow:var(--sh)}
+[data-theme="dark"] .crd:hover{box-shadow:0 20px 40px rgba(0,0,0,.3)} 
