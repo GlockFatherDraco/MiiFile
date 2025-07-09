@@ -4,14 +4,14 @@
 body, .crd, .img, .nm, .bio { transition: background .3s, color .3s, box-shadow .3s, border-color .3s; }
 
 [data-theme="dark"] {
-  --bg:#1a1a1a;
-  --cbg:#2d2d2d;
-  --tx:#fff;
-  --tx2:#b0b0b0;
-  --bd:#404040;
-  --sh:0 10px 30px rgba(0,0,0,.3);
-  --tglbg:#2d2d2d;
-  --tglbd:#404040;
+  --bg: #1a1a1a !important;
+  --cbg: #2d2d2d !important;
+  --tx: #fff !important;
+  --tx2: #b0b0b0 !important;
+  --bd: #404040 !important;
+  --sh: 0 10px 30px rgba(0,0,0,.3) !important;
+  --tglbg: #2d2d2d !important;
+  --tglbd: #404040 !important;
 }
 
 [data-theme="dark"] .crd { box-shadow: var(--sh); }
