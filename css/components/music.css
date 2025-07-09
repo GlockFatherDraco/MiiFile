@@ -1,0 +1,27 @@
+/* ┌─────────────┐
+   │  Music Btn  │
+   └─────────────┘ */
+#msc{position:fixed;top:20px;left:20px;width:48px;height:48px;border-radius:50%;border:2px solid var(--tglbd);background:var(--tglbg);color:var(--tx);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.3s;z-index:1000;outline:0}
+#msc:focus{outline:none;box-shadow:none;}
+#msc svg{width:24px;height:24px;display:block}
+#msc .muted{display:none}#msc.muted .muted{display:block}#msc.muted .speaker{display:none}
+#msc:hover{transform:scale(1.1);box-shadow:0 4px 12px rgba(0,0,0,.1)}
+@media(max-width:480px){#msc{top:16px;left:16px;width:44px;height:44px}}
+@media(max-width:320px){#msc{top:12px;left:12px;width:40px;height:40px}}
+/* ┌─────────────┐
+   │   Capsule   │
+   └─────────────┘ */
+.msc-capsule{position:fixed;left:20px;top:72px;width:48px;height:144px;border-radius:24px;background:var(--cbg);border:2px solid var(--bd);box-shadow:0 8px 32px rgba(0,0,0,.12);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;opacity:0;pointer-events:none;transform:translateY(-16px) scaleY(.8);transition:opacity .3s,transform .3s;z-index:1001;padding:0;outline:0;cursor:pointer;user-select:none;overflow:hidden}
+.msc-capsule.open{opacity:1;pointer-events:auto;transform:translateY(0) scaleY(1)}
+.msc-capsule:focus{outline:none;box-shadow:none}
+@media(max-width:480px){.msc-capsule{left:16px;top:60px;width:44px;height:132px;border-radius:22px}}
+@media(max-width:320px){.msc-capsule{left:12px;top:52px;width:40px;height:120px;border-radius:20px}}
+/* ┌─────────────┐
+   │    Fill     │
+   └─────────────┘ */
+.msc-capsule-fill{width:100%;position:absolute;left:0;bottom:0;z-index:1;transition:height .2s,background .3s,border-radius .2s;will-change:height,background,border-radius;border-radius:0 0 24px 24px;background:linear-gradient(to top,var(--tx) 0%,var(--tx2) 100%)}
+.msc-capsule[aria-valuenow="0"] .msc-capsule-fill{height:0!important;background:linear-gradient(to top,#222,#444);border-radius:0 0 24px 24px}
+.msc-capsule[aria-valuenow="100"] .msc-capsule-fill{border-radius:24px;background:linear-gradient(to top,var(--tx) 0%,var(--tx) 100%)} 
+#msc.muted .mute-x {
+  stroke: #e53935;
+} 
