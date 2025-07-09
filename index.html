@@ -7,14 +7,13 @@
   <!-- ┌─────────────┐
        │  CSS Import │
        └─────────────┘ -->
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/layout.css">
-  <link rel="stylesheet" href="css/comps.css">
-  <link rel="stylesheet" href="css/themes.css">
-  <link rel="stylesheet" href="css/toggle.css">
-  <link rel="stylesheet" href="css/music.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/entry.css">
 </head>
 <body>
+  <div id="entry-overlay">
+    <p id="entry-text">click to enter.</p>
+  </div>
   <!-- ┌─────────────┐
        │  Music Btn  │
        └─────────────┘ -->
@@ -27,8 +26,8 @@
     <svg class="muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <rect x="3" y="8" width="5" height="8" rx="2"/>
       <polygon points="8,10 14,6 14,18 8,14"/>
-      <line x1="17" y1="9" x2="21" y2="15"/>
-      <line x1="21" y1="9" x2="17" y2="15"/>
+      <line class="mute-x" x1="17" y1="9" x2="21" y2="15"/>
+      <line class="mute-x" x1="21" y1="9" x2="17" y2="15"/>
     </svg>
   </button>
   <div class="msc-capsule" aria-label="Volume control" tabindex="0" role="slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
@@ -72,6 +71,6 @@
   <!-- ┌─────────────┐
        │  JS Import  │
        └─────────────┘ -->
-  <script src="js/main.js"></script>
+  <script type="module" src="js/main.js"></script>
 </body>
 </html> 
