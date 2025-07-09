@@ -1,0 +1,102 @@
+/* ┌─────────────┐
+   │ Reset/Base  │
+   └─────────────┘ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ┌─────────────┐
+   │ Blue Highlights│
+   └─────────────┘ */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* ┌─────────────┐
+   │ Text Selection│
+   └─────────────┘ */
+p, h1, h2, h3, h4, h5, h6, span, div {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* ┌─────────────┐
+   │ Focus Styles │
+   └─────────────┘ */
+*:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* ┌─────────────┐
+   │ Form Elements│
+   └─────────────┘ */
+button, input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* ┌─────────────┐
+   │ Images      │
+   └─────────────┘ */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ┌─────────────┐
+   │ Lists       │
+   └─────────────┘ */
+ul, ol {
+  list-style: none;
+}
+
+/* ┌─────────────┐
+   │ Links       │
+   └─────────────┘ */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ┌─────────────┐
+   │ Tables      │
+   └─────────────┘ */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+} 

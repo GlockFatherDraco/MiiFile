@@ -1,0 +1,26 @@
+/* ┌─────────────┐
+   │ Container   │
+   └─────────────┘ */
+.crd-cnt {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  min-height: 100vh;
+}
+
+/* ┌─────────────┐
+   │ Responsive  │
+   └─────────────┘ */
+@media (max-width: 480px) {
+  .crd-cnt {
+    padding: var(--spacing-md);
+  }
+}
+
+@media (max-width: 320px) {
+  .crd-cnt {
+    padding: var(--spacing-sm);
+  }
+} 

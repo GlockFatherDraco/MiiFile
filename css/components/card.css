@@ -1,0 +1,36 @@
+/* ┌─────────────┐
+   │ Card Text   │
+   └─────────────┘ */
+.nm {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-sm);
+  color: var(--tx);
+  transition: color var(--transition-normal);
+}
+
+.bio {
+  font-size: var(--font-size-md);
+  color: var(--tx2);
+  line-height: 1.6;
+  transition: color var(--transition-normal);
+}
+
+/* ┌─────────────┐
+   │ Responsive  │
+   └─────────────┘ */
+@media (max-width: 480px) {
+  .nm {
+    font-size: 1.75rem;
+  }
+  
+  .bio {
+    font-size: var(--font-size-base);
+  }
+}
+
+@media (max-width: 320px) {
+  .nm {
+    font-size: 1.5rem;
+  }
+} 

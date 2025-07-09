@@ -1,0 +1,26 @@
+/* ┌─────────────┐
+   │ Typography  │
+   └─────────────┘ */
+body {
+  font-family: var(--font-main);
+  font-size: var(--font-size-base);
+  background: var(--bg);
+  color: var(--tx);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background var(--transition-normal), color var(--transition-normal);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-main);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  margin-bottom: var(--spacing-sm);
+}
+
+p {
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.6;
+} 
