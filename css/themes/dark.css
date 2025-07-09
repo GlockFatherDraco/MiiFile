@@ -2,8 +2,7 @@
    │ Dark Theme  │
    └─────────────┘ */
 body, .crd, .img, .nm, .bio { transition: background .3s, color .3s, box-shadow .3s, border-color .3s; }
-[data-theme="dark"] .crd { box-shadow: var(--sh); }
-[data-theme="dark"] .crd:hover { box-shadow: 0 20px 40px rgba(0,0,0,.3); }
+
 [data-theme="dark"] {
   --bg:#1a1a1a;
   --cbg:#2d2d2d;
@@ -13,4 +12,7 @@ body, .crd, .img, .nm, .bio { transition: background .3s, color .3s, box-shadow 
   --sh:0 10px 30px rgba(0,0,0,.3);
   --tglbg:#2d2d2d;
   --tglbd:#404040;
-} 
+}
+
+[data-theme="dark"] .crd { box-shadow: var(--sh); }
+[data-theme="dark"] .crd:hover { box-shadow: 0 20px 40px rgba(0,0,0,.3); } 
