@@ -8,7 +8,7 @@
 ## ✨ Features:
 
 Light And Dark mode
-| ![Image 1](https://i.imgur.com/lPPgJL8.png) | ![Image 2](https://i.imgur.com/uUJdfK6.png) |
+| ![MiiFile Light](https://i.imgur.com/CQ5ITQp.png) | ![MiiFile Dark](https://i.imgur.com/2IDVfC6.png) |
 |:---:|:---:|
 | Light mode | Dark mode |
 
