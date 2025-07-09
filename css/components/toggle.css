@@ -1,0 +1,28 @@
+/* ┌─────────────┐
+   │ Toggle Btn  │
+   └─────────────┘ */
+#tgl {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--tglbd);
+  background: var(--tglbg);
+  color: var(--tx);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .3s;
+  z-index: 1000;
+}
+#tgl:hover { transform: scale(1.1); box-shadow: 0 4px 12px rgba(0,0,0,.1); }
+#tgl svg { transition: opacity .3s; }
+.sun { opacity: 1; }
+.moon { opacity: 0; position: absolute; }
+[data-theme="dark"] .sun { opacity: 0; }
+[data-theme="dark"] .moon { opacity: 1; }
+@media (max-width: 480px) { #tgl { top: 16px; right: 16px; width: 44px; height: 44px; } }
+@media (max-width: 320px) { #tgl { top: 12px; right: 12px; width: 40px; height: 40px; } } 
