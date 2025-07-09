@@ -1,9 +1,8 @@
 // ┌─────────────┐
 // │ BGM Audio  │
 // └─────────────┘
-import { $ } from '../core/dom.js';
-
-(() => {
+(function() {
+  const $ = (sel, ctx=document) => ctx.querySelector(sel);
   const a = $('audio');
   window.addEventListener('click', () => { a && a.play(); }, { once: true });
 })(); 

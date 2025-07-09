@@ -1,14 +1,12 @@
 // ┌─────────────┐
 // │ Theme      │
 // └─────────────┘
-import { $, on } from '../core/dom.js';
-import { get, set } from '../core/storage.js';
-
-(() => {
+(function() {
+  const $ = (sel, ctx=document) => ctx.querySelector(sel);
   const k = 'theme';
   const de = document.documentElement;
   const b = $('#tgl');
-  const setT = t => { de.setAttribute('data-theme', t); set(k, t); };
-  setT(get(k) || 'light');
-  on(b, 'click', () => setT(de.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+  const setT = t => { de.setAttribute('data-theme', t); localStorage.setItem(k, t); };
+  setT(localStorage.getItem(k) || 'light');
+  b && b.addEventListener('click', () => setT(de.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
 })(); 

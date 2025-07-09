@@ -1,9 +1,8 @@
 // ┌─────────────┐
 // │ Entry UI   │
 // └─────────────┘
-import { $ } from '../core/dom.js';
-
-(() => {
+(function() {
+  const $ = (sel, ctx=document) => ctx.querySelector(sel);
   const overlay = $('#entry-overlay');
   const text = $('#entry-text');
   const steps = ['click to enter.','click to enter..','click to enter...','click to enter..','click to enter.'];
