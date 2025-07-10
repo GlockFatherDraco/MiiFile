@@ -15,6 +15,11 @@
 /* ┌─────────────┐
    │ Reset/Type  │
    └─────────────┘ */
+html {
+  overflow: hidden;
+  height: 100%;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -39,6 +44,10 @@ body {
   display: flex;
   flex-direction: column;
   transition: background .3s, color .3s;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
 }
 
 /* ┌─────────────┐
