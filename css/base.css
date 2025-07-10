@@ -1,0 +1,59 @@
+/* ┌─────────────┐
+   │ Base/Vars   │
+   └─────────────┘ */
+:root {
+  --bg: #fff;
+  --cbg: #F5F5F5;
+  --tx: #2c3e50;
+  --tx2: #6c757d;
+  --bd: #979797;
+  --sh: 0 10px 30px rgba(0,0,0,.1);
+  --tglbg: #F5F5F5;
+  --tglbd: #979797;
+}
+
+/* ┌─────────────┐
+   │ Reset/Type  │
+   └─────────────┘ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ┌─────────────┐
+   │ Body Style  │
+   └─────────────┘ */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: var(--bg);
+  color: var(--tx);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background .3s, color .3s;
+}
+
+/* ┌─────────────┐
+   │ Typography  │
+   └─────────────┘ */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+} 
