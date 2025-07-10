@@ -4,18 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Profile Card</title>
+
   <!-- ┌─────────────┐
-       │ CSS Import  │
+       │ CSS: Core   │
        └─────────────┘ -->
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/layout.css">
-  <link rel="stylesheet" href="css/comps.css">
-  <link rel="stylesheet" href="css/themes.css">
-  <link rel="stylesheet" href="css/toggle.css">
-  <link rel="stylesheet" href="css/music.css">
-  <link rel="stylesheet" href="css/click-effect.css">
-  <link rel="stylesheet" href="css/glass-effect.css">
-  <link rel="stylesheet" href="css/entry.css">
+  <link rel="stylesheet" href="css/core/base.css">
+  <link rel="stylesheet" href="css/core/layout.css">
+
+  <!-- ┌─────────────┐
+       │ CSS: Components │
+       └─────────────┘ -->
+  <link rel="stylesheet" href="css/components/comps.css">
+  <link rel="stylesheet" href="css/components/toggle.css">
+  <link rel="stylesheet" href="css/components/music.css">
+
+  <!-- ┌─────────────┐
+       │ CSS: Effects │
+       └─────────────┘ -->
+  <link rel="stylesheet" href="css/effects/click-effect.css">
+  <link rel="stylesheet" href="css/effects/glass-effect.css">
+
+  <!-- ┌─────────────┐
+       │ CSS: Themes  │
+       └─────────────┘ -->
+  <link rel="stylesheet" href="css/themes/themes.css">
+
+  <!-- ┌─────────────┐
+       │ CSS: Entry   │
+       └─────────────┘ -->
+  <link rel="stylesheet" href="css/entry/entry.css">
 </head>
 <body>
   <!-- ┌─────────────┐
@@ -24,9 +41,9 @@
   <div class="entry-overlay" id="entryOverlay">
     <div class="entry-text">click to enter</div>
   </div>
-  
+
   <!-- ┌─────────────┐
-       │ Theme Tgl   │
+       │ Theme Toggle│
        └─────────────┘ -->
   <button id="tgl" aria-label="Toggle dark/light mode">
     <svg class="sun" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -44,9 +61,9 @@
       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
     </svg>
   </button>
-  
+
   <!-- ┌─────────────┐
-       │ Music Btn   │
+       │ Music Button│
        └─────────────┘ -->
   <button id="msc" aria-label="Music control" tabindex="0">
     <svg class="speaker" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -61,16 +78,16 @@
       <line x1="21" y1="9" x2="17" y2="15"/>
     </svg>
   </button>
-  
+
   <!-- ┌─────────────┐
        │ Volume Ctrl │
        └─────────────┘ -->
   <div class="msc-capsule" aria-label="Volume control" tabindex="0" role="slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
     <div class="msc-capsule-fill"></div>
   </div>
-  
+
   <!-- ┌─────────────┐
-       │ Card Cnt    │
+       │ Card Content│
        └─────────────┘ -->
   <main class="crd-cnt">
     <article class="crd">
@@ -81,17 +98,32 @@
       <p class="bio">Content Creator & Developer</p>
     </article>
   </main>
-  
+
   <!-- ┌─────────────┐
        │ BGM Audio   │
        └─────────────┘ -->
   <audio src="assets/music/PB0.ogg" loop hidden></audio>
-  
+
   <!-- ┌─────────────┐
-       │ JS Import   │
+       │ JS: Core    │
        └─────────────┘ -->
-  <script src="js/main.js"></script>
-  <script src="js/click-effect.js"></script>
-  <script src="js/glass-effect.js"></script>
+  <script src="js/core/audio.js"></script>
+  <script src="js/core/theme-toggle.js"></script>
+
+  <!-- ┌─────────────┐
+       │ JS: Components │
+       └─────────────┘ -->
+  <script src="js/components/music-control.js"></script>
+
+  <!-- ┌─────────────┐
+       │ JS: Entry   │
+       └─────────────┘ -->
+  <script src="js/entry/entry-screen.js"></script>
+
+  <!-- ┌─────────────┐
+       │ JS: Effects │
+       └─────────────┘ -->
+  <script src="js/effects/click-effect.js"></script>
+  <script src="js/effects/glass-effect.js"></script>
 </body>
 </html> 

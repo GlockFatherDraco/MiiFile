@@ -1,0 +1,125 @@
+/* ┌─────────────┐
+   │ Glass Effect│
+   └─────────────┘ */
+
+/* ┌─────────────┐
+   │ Body Setup  │
+   └─────────────┘ */
+body {
+  position: relative;
+  background: var(--bg);
+  overflow-x: hidden;
+}
+
+/* ┌─────────────┐
+   │ Glass Overlay│
+   └─────────────┘ */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  z-index: -1;
+}
+
+/* ┌─────────────┐
+   │ Card Glass  │
+   └─────────────┘ */
+body.glass-mode .crd {
+  background: var(--glass-bg, rgba(255, 255, 255, 0.2));
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.25));
+  box-shadow: 0 8px 32px var(--glass-shadow, rgba(0, 0, 0, 0.15));
+}
+
+/* ┌─────────────┐
+   │ Button Glass│
+   └─────────────┘ */
+body.glass-mode #tgl,
+body.glass-mode #msc {
+  background: var(--glass-bg, rgba(255, 255, 255, 0.2));
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.25));
+  color: var(--glass-text, rgba(0, 0, 0, 0.8));
+}
+
+/* ┌─────────────┐
+   │ Volume Glass│
+   └─────────────┘ */
+body.glass-mode .msc-capsule {
+  background: var(--glass-bg, rgba(255, 255, 255, 0.2));
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.25));
+}
+
+body.glass-mode .msc-capsule-fill {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 100%);
+}
+
+/* ┌─────────────┐
+   │ Text Glass  │
+   └─────────────┘ */
+body.glass-mode .nm {
+  color: var(--glass-text, inherit);
+  text-shadow: 0 2px 4px var(--glass-shadow, rgba(0, 0, 0, 0.3));
+}
+
+body.glass-mode .bio {
+  color: var(--glass-text-secondary, inherit);
+  text-shadow: 0 1px 2px var(--glass-shadow, rgba(0, 0, 0, 0.3));
+}
+
+/* ┌─────────────┐
+   │ Dark Theme  │
+   └─────────────┘ */
+body.glass-mode[data-theme="dark"]::after {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+body.glass-mode[data-theme="dark"] .crd {
+  background: var(--glass-bg, rgba(0, 0, 0, 0.2));
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.15));
+  box-shadow: 0 8px 32px var(--glass-shadow, rgba(0, 0, 0, 0.3));
+}
+
+body.glass-mode[data-theme="dark"] #tgl,
+body.glass-mode[data-theme="dark"] #msc {
+  background: var(--glass-bg, rgba(0, 0, 0, 0.2));
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.15));
+  color: var(--glass-text, rgba(255, 255, 255, 0.9));
+}
+
+body.glass-mode[data-theme="dark"] .msc-capsule {
+  background: var(--glass-bg, rgba(0, 0, 0, 0.2));
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.15));
+}
+
+body.glass-mode[data-theme="dark"] .msc-capsule-fill {
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.6) 100%);
+}
+
+body.glass-mode[data-theme="dark"] .nm {
+  color: var(--glass-text, rgba(255, 255, 255, 0.95));
+  text-shadow: 0 2px 4px var(--glass-shadow, rgba(0, 0, 0, 0.5));
+}
+
+body.glass-mode[data-theme="dark"] .bio {
+  color: var(--glass-text-secondary, rgba(255, 255, 255, 0.8));
+  text-shadow: 0 1px 2px var(--glass-shadow, rgba(0, 0, 0, 0.5));
+} 
