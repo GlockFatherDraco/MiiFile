@@ -59,8 +59,3 @@ img {
   max-inline-size: 100%;
   block-size: auto;
 }
-
-/* ┌─────────────┐
-   │ Responsive  │
-   └─────────────┘ */
-/* Responsive styles moved to css/core/responsive.css */ 
