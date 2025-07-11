@@ -1,0 +1,114 @@
+/* ┌─────────────┐
+   │ Music Button│
+   └─────────────┘ */
+#msc {
+  position: fixed;
+  top: 1.25rem;
+  left: 1.25rem;
+  width: var(--music-button-size);
+  height: var(--music-button-size);
+  border-radius: 50%;
+  border: 2px solid var(--tglbd);
+  background: var(--tglbg);
+  color: var(--tx);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  z-index: 100;
+  will-change: transform;
+}
+
+#msc:focus, .msc-capsule:focus {
+  outline: none;
+}
+
+#msc:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-hover);
+}
+
+/* ┌─────────────┐
+   │ Button Icons│
+   └─────────────┘ */
+#msc svg {
+  width: var(--music-icon-size);
+  height: var(--music-icon-size);
+  display: block;
+}
+
+#msc .muted {
+  display: none;
+}
+
+#msc.muted .muted {
+  display: block;
+}
+
+#msc.muted .speaker {
+  display: none;
+}
+
+#msc.muted .muted line {
+  stroke: var(--music-muted-color);
+}
+
+/* ┌─────────────┐
+   │ Volume Capsule│
+   └─────────────┘ */
+.msc-capsule {
+  position: fixed;
+  left: 1.25rem;
+  top: 4.5rem;
+  width: var(--music-capsule-width);
+  height: var(--music-capsule-height);
+  border-radius: var(--music-border-radius);
+  background: var(--cbg);
+  border: 2px solid var(--bd);
+  box-shadow: var(--music-capsule-shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-1rem) scaleY(0.8);
+  transition: opacity var(--transition-base), transform var(--transition-base);
+  z-index: 101;
+  padding: 0;
+  cursor: pointer;
+  user-select: none;
+  overflow: hidden;
+  will-change: opacity, transform;
+}
+
+.msc-capsule.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scaleY(1);
+}
+
+/* ┌─────────────┐
+   │ Volume Fill │
+   └─────────────┘ */
+.msc-capsule-fill {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+  transition: height var(--transition-base), background var(--transition-base), border-radius var(--transition-base);
+  will-change: height, background, border-radius;
+  border-radius: 0 0 var(--music-border-radius) var(--music-border-radius);
+  background: linear-gradient(to top, var(--tx) 0%, var(--tx2) 100%);
+}
+
+.msc-capsule[aria-valuenow="0"] .msc-capsule-fill {
+  height: 0;
+}
+
+.msc-capsule[aria-valuenow="100"] .msc-capsule-fill {
+  border-radius: var(--music-border-radius);
+  background: linear-gradient(to top, var(--tx) 0%, var(--tx) 100%);
+}

@@ -1,0 +1,73 @@
+/* ┌─────────────┐
+   │ Entry Overlay│
+   └─────────────┘ */
+.entry-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--entry-bg-light);
+  backdrop-filter: blur(var(--entry-blur));
+  display: grid;
+  place-items: center;
+  z-index: var(--entry-z-index);
+  cursor: pointer;
+  transition: opacity var(--entry-transition), visibility var(--entry-transition);
+  opacity: 1;
+  visibility: visible;
+  will-change: opacity, visibility;
+  contain: layout style paint;
+  overscroll-behavior: none;
+}
+
+/* ┌─────────────┐
+   │ Fade-out State│
+   └─────────────┘ */
+.entry-overlay.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* ┌─────────────┐
+   │ Entry Text  │
+   └─────────────┘ */
+.entry-text {
+  font-size: var(--entry-font-size);
+  font-weight: var(--entry-font-weight);
+  color: var(--tx);
+  text-align: center;
+  user-select: none;
+  text-rendering: optimizeLegibility;
+  font-synthesis: none;
+}
+
+/* ┌─────────────┐
+   │ Dots Animation│
+   └─────────────┘ */
+.entry-text::after {
+  content: '';
+  animation: dots var(--dots-animation-duration) steps(var(--dots-animation-steps)) infinite;
+}
+
+/* ┌─────────────┐
+   │ Keyframes   │
+   └─────────────┘ */
+@keyframes dots {
+  0% { content: ''; }
+  25% { content: '.'; }
+  50% { content: '..'; }
+  75% { content: '...'; }
+}
+
+/* ┌─────────────┐
+   │ Theme Support│
+   └─────────────┘ */
+@media (prefers-color-scheme: dark) {
+  .entry-overlay {
+    background: var(--entry-bg-dark);
+  }
+}
+[data-theme="dark"] .entry-overlay {
+  background: var(--entry-bg-dark);
+}
+[data-theme="light"] .entry-overlay {
+  background: var(--entry-bg-light);
+} 

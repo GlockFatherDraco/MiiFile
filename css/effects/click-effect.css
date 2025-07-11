@@ -1,0 +1,38 @@
+/* ┌─────────────┐
+   │ Ripple Effect│
+   └─────────────┘ */
+.ripple {
+  position: fixed;
+  border-radius: 50%;
+  background: var(--ripple-bg);
+  pointer-events: none;
+  z-index: var(--ripple-z);
+  transform: scale(0);
+  animation: ripple-effect var(--ripple-duration) ease-out forwards;
+}
+
+/* ┌─────────────┐
+   │ Dark Theme  │
+   └─────────────┘ */
+[data-theme="dark"] .ripple {
+  background: var(--ripple-bg-dark);
+}
+
+/* ┌─────────────┐
+   │ Animation   │
+   └─────────────┘ */
+@keyframes ripple-effect {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* ┌─────────────┐
+   │ Responsive  │
+   └─────────────┘ */
+/* Responsive styles moved to css/core/responsive.css */ 

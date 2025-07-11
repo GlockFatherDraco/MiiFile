@@ -1,0 +1,66 @@
+/* ┌─────────────┐
+   │ HTML Reset  │
+   └─────────────┘ */
+html {
+  block-size: 100%;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ┌─────────────┐
+   │ Body Layout │
+   └─────────────┘ */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: var(--bg);
+  color: var(--tx);
+  line-height: 1.6;
+  min-block-size: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background var(--transition-base), color var(--transition-base);
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+/* ┌─────────────┐
+   │ Main Layout │
+   └─────────────┘ */
+.crd-cnt {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  min-block-size: 100vh;
+}
+
+/* ┌─────────────┐
+   │ Typography  │
+   └─────────────┘ */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+p {
+  margin-block-end: 1rem;
+}
+
+/* ┌─────────────┐
+   │ Media       │
+   └─────────────┘ */
+img {
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+/* ┌─────────────┐
+   │ Responsive  │
+   └─────────────┘ */
+/* Responsive styles moved to css/core/responsive.css */ 
