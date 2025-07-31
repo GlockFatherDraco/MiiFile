@@ -1,33 +1,20 @@
-/* ┌─────────────┐
-   │ Ripple Effect│
-   └─────────────┘ */
+/* CLICK EFFECTS - Interactive Animations */
+
 .ripple {
   position: fixed;
   border-radius: 50%;
+  z-index: var(--ripple-z);
   background: var(--ripple-bg);
   pointer-events: none;
-  z-index: var(--ripple-z);
   transform: scale(0);
   animation: ripple-effect var(--ripple-duration) ease-out forwards;
 }
 
-/* ┌─────────────┐
-   │ Dark Theme  │
-   └─────────────┘ */
-[data-theme="dark"] .ripple {
-  background: var(--ripple-bg-dark);
-}
+[data-theme="dark"] .ripple { background: var(--ripple-bg-dark); }
 
-/* ┌─────────────┐
-   │ Animation   │
-   └─────────────┘ */
+/* KEYFRAME ANIMATIONS */
+
 @keyframes ripple-effect {
-  0% {
-    transform: scale(0);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(4);
-    opacity: 0;
-  }
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(4); opacity: 0; }
 }

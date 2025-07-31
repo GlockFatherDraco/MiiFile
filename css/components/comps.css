@@ -1,16 +1,15 @@
-/* ┌─────────────┐
-   │ Card Layout │
-   └─────────────┘ */
+/* COMPONENTS - Main Profile Card Components */
+
 .crd {
-  background: var(--cbg);
-  border-radius: var(--border-radius-card);
-  padding: 2rem 2.5rem;
-  box-shadow: var(--sh);
-  text-align: center;
   max-width: 400px;
   width: 100%;
+  padding: 2rem 2.5rem;
+  background: var(--cbg);
   border: 1px solid var(--bd);
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  border-radius: var(--border-radius-card);
+  box-shadow: var(--sh);
+  text-align: center;
+  transition: all var(--transition-base);
   will-change: transform;
 }
 
@@ -19,39 +18,32 @@
   box-shadow: var(--shadow-card-hover);
 }
 
-/* ┌─────────────┐
-   │ Profile Img │
-   └─────────────┘ */
-.img-cnt {
-  margin-bottom: 1.25rem;
-}
+/* PROFILE IMAGE */
+
+.img-cnt { margin-bottom: 1.25rem; }
 
 .img {
   width: 120px;
   height: 120px;
+  border: 4px solid var(--bd);
   border-radius: var(--border-radius-social);
   object-fit: cover;
-  border: 4px solid var(--bd);
-  transition: border-color var(--transition-base);
+  transition: all var(--transition-base);
   will-change: border-color;
 }
 
-.img:hover {
-  border-color: var(--tx2);
-}
+.img:hover { border-color: var(--tx2); }
 
-/* ┌─────────────┐
-   │ Text Content│
-   └─────────────┘ */
-.nm, .bio {
-  transition: color var(--transition-base);
-}
+/* TYPOGRAPHY */
+
+.nm, .bio { transition: all var(--transition-base); }
 
 .nm {
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 0.75rem;
   color: var(--tx);
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
 }
 
 .bio {
@@ -60,15 +52,15 @@
   line-height: 1.6;
 }
 
-/* ┌─────────────┐
-   │ Social Links│
-   └─────────────┘ */
+/* SOCIAL MEDIA LINKS */
+
 .social-icons {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 1rem;
-  margin-top: 1.5rem;
   flex-wrap: wrap;
+  margin-top: 1.5rem;
 }
 
 .social-link {
@@ -77,18 +69,14 @@
   justify-content: center;
   width: var(--social-icon-size);
   height: var(--social-icon-size);
-  border-radius: var(--border-radius-social);
-  background: var(--cbg);
-  border: 2px solid var(--bd);
-  color: var(--tx2);
-  text-decoration: none;
-  transition: transform var(--transition-transform), 
-              border-color var(--transition-base), 
-              color var(--transition-base), 
-              background-color var(--transition-base), 
-              box-shadow var(--transition-base);
   position: relative;
   overflow: hidden;
+  background: var(--cbg);
+  border: 2px solid var(--bd);
+  border-radius: var(--border-radius-social);
+  color: var(--tx2);
+  text-decoration: none;
+  transition: all var(--transition-base);
   will-change: transform;
 }
 
@@ -106,65 +94,40 @@
   will-change: transform;
 }
 
-.social-link:hover svg {
-  transform: scale(1.1);
-}
+.social-link:hover svg { transform: scale(1.1); }
 
-/* ┌─────────────┐
-   │ Social Colors│
-   └─────────────┘ */
+/* SOCIAL MEDIA ICONS COLORS */
+
 .social-link.discord:hover,
 .social-link.youtube:hover,
 .social-link.x:hover,
 .social-link.github:hover,
-.social-link.spotify:hover {
-  color: white;
-}
+.social-link.tiktok:hover { color: white; }
 
-.social-link.discord:hover {
-  background: var(--discord-color);
-  border-color: var(--discord-color);
-}
+.social-link.discord:hover { background: var(--discord-color); border-color: var(--discord-color); }
+.social-link.youtube:hover { background: var(--youtube-color); border-color: var(--youtube-color); }
+.social-link.x:hover { background: var(--x-color); border-color: var(--x-color); }
+.social-link.github:hover { background: var(--github-color); border-color: var(--github-color); }
+.social-link.tiktok:hover { background: var(--tiktok-color); border-color: var(--tiktok-color); }
 
-.social-link.youtube:hover {
-  background: var(--youtube-color);
-  border-color: var(--youtube-color);
-}
+/* COPYRIGHT SECTION */
 
-.social-link.x:hover {
-  background: var(--x-color);
-  border-color: var(--x-color);
-}
-
-.social-link.github:hover {
-  background: var(--github-color);
-  border-color: var(--github-color);
-}
-
-.social-link.spotify:hover {
-  background: var(--spotify-color);
-  border-color: var(--spotify-color);
-}
-
-/* ┌─────────────┐
-   │ Copyright   │
-   └─────────────┘ */
 .copyright-capsule {
   position: fixed;
   bottom: 1rem;
   left: 50%;
   transform: translateX(-50%);
+  max-width: 400px;
+  width: 100%;
+  z-index: 1000;
   background: var(--cbg);
   border: 1px solid var(--bd);
   border-radius: var(--border-radius-copyright);
+  box-shadow: var(--sh);
   padding: 0.5rem 1rem;
   opacity: 0;
   visibility: hidden;
-  transition: opacity var(--transition-base), visibility var(--transition-base);
-  max-width: 400px;
-  width: 100%;
-  box-shadow: var(--sh);
-  z-index: 1000;
+  transition: all var(--transition-base);
   will-change: opacity, visibility;
 }
 
@@ -179,29 +142,18 @@
   line-height: 1.4;
 }
 
-.copyright-icon {
-  flex-shrink: 0;
-}
-
-.year {
-  font-weight: 600;
-  color: var(--tx);
-}
+.year { font-weight: 600; color: var(--tx); }
 
 .readme-link {
   color: #1976d2;
   text-decoration: none;
-  transition: color var(--transition-base);
+  transition: all var(--transition-base);
 }
 
-.readme-link:hover {
-  color: #0d47a1;
-  text-decoration: underline;
-}
+.readme-link:hover { color: #0d47a1; text-decoration: underline; }
 
-/* ┌─────────────┐
-   │ Activation  │
-   └─────────────┘ */
+/* COPYRIGHT ACTIVATION ZONE */
+
 .copyright-activation-zone {
   position: fixed;
   bottom: 0;
@@ -213,7 +165,4 @@
 }
 
 .copyright-activation-zone:hover ~ .copyright-capsule,
-.copyright-capsule:hover {
-  opacity: 1;
-  visibility: visible;
-}
+.copyright-capsule:hover { opacity: 1; visibility: visible; }

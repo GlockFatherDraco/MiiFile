@@ -1,11 +1,10 @@
-/* ┌─────────────┐
-   │ HTML Reset  │
-   └─────────────┘ */
-html {
-  block-size: 100%;
-}
+/* BASE STYLES - Foundation & Reset */
 
-*, *::before, *::after {
+html { block-size: 100%; }
+
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -13,49 +12,36 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* ┌─────────────┐
-   │ Body Layout │
-   └─────────────┘ */
+/* BODY & LAYOUT FOUNDATION */
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background: var(--bg);
   color: var(--tx);
   line-height: 1.6;
-  min-block-size: 100vh;
   display: flex;
   flex-direction: column;
-  transition: background var(--transition-base), color var(--transition-base);
+  min-block-size: 100vh;
   inline-size: 100%;
   block-size: 100%;
+  background: var(--bg);
+  transition: all var(--transition-base);
 }
 
-/* ┌─────────────┐
-   │ Main Layout │
-   └─────────────┘ */
+/* MAIN CONTENT CONTAINER */
+
 .crd-cnt {
   flex: 1;
   display: grid;
   place-items: center;
-  padding: 1.25rem;
   min-block-size: 100vh;
+  padding: 1.25rem;
 }
 
-/* ┌─────────────┐
-   │ Typography  │
-   └─────────────┘ */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
-  line-height: 1.2;
-}
+/* TYPOGRAPHY SYSTEM */
 
-p {
-  margin-block-end: 1rem;
-}
+h1, h2, h3, h4, h5, h6 { font-weight: 700; line-height: 1.2; }
+p { margin-block-end: 1rem; }
 
-/* ┌─────────────┐
-   │ Media       │
-   └─────────────┘ */
-img {
-  max-inline-size: 100%;
-  block-size: auto;
-}
+/* MEDIA ELEMENTS */
+
+img { max-inline-size: 100%; block-size: auto; }

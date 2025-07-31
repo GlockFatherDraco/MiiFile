@@ -1,49 +1,34 @@
-/* ┌─────────────┐
-   │ Toggle Button│
-   └─────────────┘ */
+/* THEME TOGGLE - Dark/Light Mode Switch */
+
 #tgl {
   position: fixed;
   top: 1.25rem;
   right: 1.25rem;
   width: 3rem;
   height: 3rem;
-  border-radius: 50%;
-  border: 2px solid var(--tglbd);
-  background: var(--tglbg);
-  color: var(--tx);
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all var(--transition-base);
   z-index: 100;
+  background: var(--tglbg);
+  border: 2px solid var(--tglbd);
+  border-radius: 50%;
+  color: var(--tx);
+  cursor: pointer;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
 
 #tgl:hover {
   transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(0,0,0,.1);
+  box-shadow: var(--shadow-hover);
 }
 
-/* ┌─────────────┐
-   │ Theme Icons │
-   └─────────────┘ */
-#tgl svg {
-  transition: opacity var(--transition-base);
-}
+/* THEME ICONS */
 
-.sun {
-  opacity: 1;
-}
+#tgl svg { transition: all var(--transition-base); }
 
-.moon {
-  opacity: 0;
-  position: absolute;
-}
+.sun { opacity: 1; }
+.moon { opacity: 0; position: absolute; }
 
-[data-theme="dark"] .sun {
-  opacity: 0;
-}
-
-[data-theme="dark"] .moon {
-  opacity: 1;
-}
+[data-theme="dark"] .sun { opacity: 0; }
+[data-theme="dark"] .moon { opacity: 1; }
