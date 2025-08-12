@@ -242,6 +242,9 @@
     box-shadow: var(--sh);
     text-align: center;
     transition: transform var(--transition-transform), box-shadow var(--transition-base);
+    /* Prevent layout shifting */
+    position: relative;
+    z-index: 10;
   }
   
   .img-cnt {
@@ -321,6 +324,7 @@
     inset-inline: 0;
     block-size: 40px;
     pointer-events: auto;
+    z-index: 100;
   }
   
   .copyright-chip {
@@ -351,6 +355,9 @@
     gap: 0.5rem;
     font-size: 0.8rem;
     color: var(--tx2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .year {
@@ -534,14 +541,20 @@
   }
   
   /* =====================
-     Responsive Adjustments
+     Responsive Adjustments - FIXED SMALL SCREEN ISSUES
      ===================== */
   /* Tablets */
   @media (max-width: 768px) {
-    .crd { padding: 1.75rem 2.25rem; }
+    .crd { 
+      padding: 1.75rem 2.25rem; 
+      max-inline-size: 90vw;
+    }
     .img { inline-size: 100px; block-size: 100px; }
     .nm { font-size: 1.65rem; }
-    .social-icons { gap: 0.7rem; }
+    .social-icons { 
+      gap: 0.7rem;
+      margin-block-start: 1.2rem;
+    }
     
     #tgl,
     #msc {
@@ -550,15 +563,23 @@
     }
     
     .msc-capsule {
-      inset-block-start: 3.8rem;
+      inset-block-start: 4.5rem;
       inline-size: var(--music-capsule-width-mobile);
       block-size: var(--music-capsule-height-mobile);
+    }
+  
+    .crd-cnt {
+      padding-top: 4rem;
+      padding-bottom: 3rem;
     }
   }
   
   /* Phones */
   @media (max-width: 480px) {
-    .crd { padding: 1.5rem 2rem; }
+    .crd { 
+      padding: 1.5rem 1.8rem; 
+      max-inline-size: 95vw;
+    }
     .img { inline-size: 90px; block-size: 90px; }
     .nm { font-size: 1.5rem; }
     .bio { font-size: 0.95rem; }
@@ -581,9 +602,10 @@
     }
     
     .msc-capsule {
-      inset-block-start: 3.5rem;
+      inset-block-start: 4rem;
       inline-size: var(--music-capsule-width-mobile);
       block-size: var(--music-capsule-height-mobile);
+      z-index: 99;
     }
     
     .copyright-chip {
@@ -594,14 +616,27 @@
     .copyright-text {
       font-size: 0.75rem;
     }
+  
+    .crd-cnt {
+      padding-top: 4.5rem;
+      padding-bottom: 2.5rem;
+    }
   }
   
-  /* Small phones */
-  @media (max-width: 320px) {
-    .crd { padding: 1.25rem 1.5rem; }
+  /* Small phones - FIXED MERGING COMPONENTS */
+  @media (max-width: 360px) {
+    .crd { 
+      padding: 1.25rem 1.3rem; 
+      max-inline-size: 98vw;
+    }
     .img { inline-size: 80px; block-size: 80px; }
     .nm { font-size: 1.4rem; }
-    .social-icons { gap: 0.6rem; }
+    .bio { font-size: 0.9rem; }
+    
+    .social-icons { 
+      gap: 0.6rem;
+      margin-block-start: 1rem;
+    }
     
     .social-link {
       inline-size: var(--social-icon-size-small);
@@ -615,21 +650,127 @@
     
     #tgl,
     #msc {
+      inset-block-start: 0.75rem;
       inline-size: 2.2rem;
       block-size: 2.2rem;
     }
     
     .msc-capsule {
-      inset-block-start: 3.2rem;
+      inset-block-start: 3.5rem;
       inline-size: var(--music-capsule-width-small);
       block-size: var(--music-capsule-height-small);
       border-radius: var(--music-border-radius-small);
+      z-index: 99;
+    }
+  
+    .copyright-chip {
+      max-inline-size: 300px;
+      padding: 0.35rem 0.7rem;
+    }
+    
+    .copyright-text {
+      font-size: 0.7rem;
+      gap: 0.3rem;
+    }
+  
+    .crd-cnt {
+      padding: 1rem;
+      padding-top: 4rem;
+      padding-bottom: 2rem;
     }
   }
   
-  /* Landscape optimization */
+  /* Landscape optimization - FIXED OVERLAPPING */
   @media (max-height: 420px) and (orientation: landscape) {
-    .crd-cnt { padding: 0.5rem; }
-    .crd { padding: 1.25rem; }
-    .msc-capsule { block-size: calc(var(--music-capsule-height) * 0.7); }
+    .crd-cnt { 
+      padding: 0.5rem;
+      padding-top: 3rem;
+    }
+    .crd { 
+      padding: 1.25rem;
+      max-inline-size: 80vw;
+    }
+    .msc-capsule { 
+      block-size: calc(var(--music-capsule-height) * 0.7);
+      inset-block-start: 3rem;
+    }
+    .social-icons {
+      margin-block-start: 0.8rem;
+    }
+    .copyright-chip {
+      inset-block-end: 0.5rem;
+      max-inline-size: 300px;
+    }
+  }
+  
+  /* Ultra-small screens - ADDITIONAL FIXES */
+  @media (max-width: 320px) {
+    .crd { 
+      padding: 1.1rem 1rem; 
+      max-inline-size: 98vw;
+    }
+    .img { inline-size: 75px; block-size: 75px; }
+    .nm { font-size: 1.3rem; }
+    .bio { font-size: 0.85rem; }
+    
+    .social-icons { 
+      gap: 0.5rem;
+      margin-block-start: 0.8rem;
+    }
+    
+    #tgl,
+    #msc {
+      inset-block-start: 0.5rem;
+      inline-size: 2rem;
+      block-size: 2rem;
+    }
+    
+    .msc-capsule {
+      inset-block-start: 3rem;
+      block-size: var(--music-capsule-height-small);
+    }
+  
+    .copyright-chip {
+      max-inline-size: 280px;
+      padding: 0.3rem 0.6rem;
+    }
+    
+    .copyright-text {
+      font-size: 0.65rem;
+    }
+  
+    .crd-cnt {
+      padding: 0.8rem;
+      padding-top: 3.5rem;
+    }
+  }
+  
+  /* Height-based adjustments */
+  @media (max-height: 600px) {
+    .crd-cnt {
+      padding-top: 4rem;
+      padding-bottom: 2rem;
+    }
+    
+    .crd {
+      padding: 1.5rem;
+    }
+    
+    .img {
+      inline-size: 90px;
+      block-size: 90px;
+    }
+    
+    .nm {
+      font-size: 1.6rem;
+      margin-block-end: 0.5rem;
+    }
+    
+    .bio {
+      font-size: 0.9rem;
+    }
+    
+    .social-icons {
+      margin-block-start: 1rem;
+    }
   }
