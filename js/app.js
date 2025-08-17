@@ -1,189 +1,151 @@
 document.addEventListener('DOMContentLoaded', () => {
   // ================== UTILITIES ==================
-  const select = (selector, root = document) => root.querySelector(selector);
-  const listen = (element, event, handler, options) => element?.addEventListener(event, handler, options);
-  const clamp = (min, max, value) => Math.max(min, Math.min(max, value));
-  const prefersReducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = (s, root = document) => root.querySelector(s);
+  const on = (el, ev, fn, opts) => el?.addEventListener(ev, fn, opts);
+  const clamp = (min, max, val) => Math.max(min, Math.min(max, val));
+  const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ================== THEME TOGGLE ==================
-  const initThemeToggle = () => {
-    const button = select('#tgl');
-    const root = document.documentElement;
-    const THEME_KEY = 'theme';
-    if (!button) return;
+  const initTheme = () => {
+    const btn = $('#tgl'), root = document.documentElement;
+    if (!btn) return;
 
-    // Theme management
-    const getSystemTheme = () => matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     const setTheme = (theme) => {
-      const newTheme = theme === 'dark' ? 'dark' : 'light';
-      root.setAttribute('data-theme', newTheme);
-      localStorage.setItem(THEME_KEY, newTheme);
+      theme = theme === 'dark' ? 'dark' : 'light';
+      root.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
     };
 
-    // Initialize theme
-    setTheme(localStorage.getItem(THEME_KEY) || getSystemTheme());
+    const sysTheme = () => matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    setTheme(localStorage.getItem('theme') || sysTheme());
 
-    // System theme change listener
-    listen(matchMedia('(prefers-color-scheme: dark)'), 'change', (e) => {
-      if (!localStorage.getItem(THEME_KEY)) setTheme(e.matches ? 'dark' : 'light');
+    on(btn, 'click', () => setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+    on(matchMedia('(prefers-color-scheme: dark)'), 'change', (e) => {
+      if (!localStorage.getItem('theme')) setTheme(e.matches ? 'dark' : 'light');
     });
-
-    // Button interaction
-    listen(button, 'click', () => setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
   };
 
   // ================== AUDIO PLAYER ==================
-  const initAudioPlayer = () => {
-    const player = select('audio');
+  const initAudio = () => {
+    const player = $('audio');
     if (!player) return;
 
     window.startMusic = () => {
-      if (player.readyState >= 2) player.play().catch(() => {});
-      else listen(player, 'canplay', () => player.play().catch(() => {}), { once: true });
+      player.readyState >= 2 
+        ? player.play().catch(() => {})
+        : on(player, 'canplay', () => player.play().catch(() => {}), { once: true });
     };
   };
 
   // ================== ENTRY OVERLAY ==================
-  const initEntryOverlay = () => {
-    const overlay = select('#entryOverlay');
+  const initOverlay = () => {
+    const overlay = $('#entryOverlay');
     if (!overlay) return;
 
-    const removeOverlay = () => {
+    on(overlay, 'click', () => {
       overlay.classList.add('fade-out');
-      listen(overlay, 'transitionend', () => overlay.remove(), { once: true });
+      on(overlay, 'transitionend', () => overlay.remove(), { once: true });
       window.startMusic?.();
-    };
-
-    listen(overlay, 'click', removeOverlay);
+    });
   };
 
   // ================== VOLUME CONTROL ==================
-  const initVolumeControl = () => {
-    // Elements
-    const button = select('#msc');
-    const capsule = select('#volumeCapsule') || select('.msc-capsule');
-    const fill = select('.msc-capsule-fill', capsule);
-    const player = select('audio');
-    if (!button || !capsule || !fill || !player) return;
+  const initVolume = () => {
+    const btn = $('#msc'), capsule = $('#volumeCapsule') || $('.msc-capsule');
+    const fill = $('.msc-capsule-fill', capsule), player = $('audio');
+    if (!btn || !capsule || !fill || !player) return;
 
-    // State
-    let isOpen = false;
-    let isDragging = false;
-    const VOLUME_KEY = 'volume';
+    let isOpen = false, isDragging = false;
+    const savedVol = clamp(0, 1, parseFloat(localStorage.getItem('volume') || 0.5));
     
-    // Volume management
-    const getSavedVolume = () => clamp(0, 1, parseFloat(localStorage.getItem(VOLUME_KEY)) || 0.5);
-    const setVolume = (volume) => {
-      const newVolume = clamp(0, 1, volume);
-      const percent = Math.round(newVolume * 100);
+    const setVolume = (vol) => {
+      vol = clamp(0, 1, vol);
+      const percent = Math.round(vol * 100);
       
-      // Update player and UI
-      player.volume = newVolume;
-      fill.style.height = `${capsule.clientHeight * newVolume}px`;
-      button.classList.toggle('muted', newVolume < 0.01);
+      player.volume = vol;
+      fill.style.height = `${capsule.clientHeight * vol}px`;
+      btn.classList.toggle('muted', vol < 0.01);
       
-      // Update accessibility
       capsule.setAttribute('aria-valuenow', percent);
       capsule.setAttribute('aria-valuetext', `${percent}%`);
-      localStorage.setItem(VOLUME_KEY, newVolume.toString());
+      localStorage.setItem('volume', vol.toString());
     };
 
-    // UI interactions
-    const toggleControl = () => {
+    const toggleUI = () => {
       isOpen = !isOpen;
       capsule.classList.toggle('open', isOpen);
-      button.setAttribute('aria-expanded', isOpen);
+      btn.setAttribute('aria-expanded', isOpen);
       capsule.setAttribute('aria-hidden', !isOpen);
       if (isOpen) capsule.focus();
     };
 
-    const calculateVolume = (yPos) => {
-      const { top, height } = capsule.getBoundingClientRect();
-      return clamp(0, 1, 1 - (yPos - top) / height);
-    };
-
-    // Event handlers
-    const handleInteraction = (e) => {
+    const handleDrag = (e) => {
       const y = e.touches?.[0]?.clientY ?? e.clientY;
-      if (typeof y === 'number') setVolume(calculateVolume(y));
+      if (typeof y !== 'number') return;
+      
+      const rect = capsule.getBoundingClientRect();
+      const posY = clamp(rect.top, rect.bottom, y);
+      setVolume(1 - (posY - rect.top) / rect.height);
     };
 
-    // Initialize
-    setVolume(getSavedVolume());
-    button.setAttribute('aria-expanded', 'false');
+    // Initialize volume
+    setVolume(savedVol);
+    btn.setAttribute('aria-expanded', 'false');
     capsule.setAttribute('aria-hidden', 'true');
 
-    // Event listeners
-    listen(button, 'click', (e) => {
-      e.stopPropagation();
-      toggleControl();
-    });
-
-    listen(capsule, 'mousedown', (e) => {
+    // Event handlers
+    on(btn, 'click', (e) => e.stopPropagation() || toggleUI());
+    
+    // Drag handling
+    const startDrag = (e) => {
       isDragging = true;
-      handleInteraction(e);
-    });
+      e.preventDefault();
+      handleDrag(e);
+    };
     
-    listen(capsule, 'touchstart', (e) => {
-      isDragging = true;
-      handleInteraction(e);
-    }, { passive: false });
-
-    const updateOnMove = (e) => isDragging && handleInteraction(e);
-    const stopDragging = () => isDragging = false;
+    on(capsule, 'mousedown', startDrag);
+    on(capsule, 'touchstart', startDrag, { passive: false });
     
-    document.addEventListener('mousemove', updateOnMove);
-    document.addEventListener('touchmove', updateOnMove, { passive: false });
-    document.addEventListener('mouseup', stopDragging);
-    document.addEventListener('touchend', stopDragging);
+    on(document, 'mousemove', (e) => isDragging && handleDrag(e));
+    on(document, 'touchmove', (e) => isDragging && (e.preventDefault() || handleDrag(e)), { passive: false });
     
-    listen(document, 'click', (e) => {
-      if (isOpen && !capsule.contains(e.target) && !button.contains(e.target)) {
-        toggleControl();
-      }
+    on(document, 'mouseup', () => isDragging = false);
+    on(document, 'touchend', () => isDragging = false);
+    
+    // Close when clicking outside
+    on(document, 'click', (e) => {
+      if (isOpen && !capsule.contains(e.target) && !btn.contains(e.target)) toggleUI();
     });
   };
 
   // ================== RIPPLE EFFECT ==================
-  const initRippleEffect = () => {
+  const initRipple = () => {
     const createRipple = (e) => {
-      // Skip interactions with controls
-      if (e.target.closest('#msc, #tgl, .msc-capsule, .copyright-chip')) return;
-      if (prefersReducedMotion()) return;
-
-      // Get position
-      const pointer = e.touches?.[0] ?? e;
-      const { clientX, clientY } = pointer;
+      if (e.target.closest('#msc, #tgl, .msc-capsule, .copyright-chip') || reduceMotion()) return;
+      
+      const { clientX, clientY } = e.touches?.[0] ?? e;
       if (typeof clientX !== 'number' || typeof clientY !== 'number') return;
 
-      // Create ripple
-      const ripple = document.createElement('span');
-      ripple.className = 'ripple';
       const size = Math.max(window.innerWidth, window.innerHeight) * 0.025;
-      
-      Object.assign(ripple.style, {
-        width: `${size}px`,
-        height: `${size}px`,
-        left: `${clientX - size/2}px`,
-        top: `${clientY - size/2}px`
+      const ripple = Object.assign(document.createElement('span'), {
+        className: 'ripple',
+        style: `
+          width: ${size}px;
+          height: ${size}px;
+          left: ${clientX - size/2}px;
+          top: ${clientY - size/2}px;
+        `
       });
 
-      // Auto-remove after animation
-      const removeRipple = () => ripple.remove();
-      listen(ripple, 'animationend', removeRipple);
-      setTimeout(removeRipple, 1000);
-
+      on(ripple, 'animationend', () => ripple.remove());
       document.body.appendChild(ripple);
     };
 
-    listen(document, 'click', createRipple);
-    listen(document, 'touchstart', createRipple, { passive: true });
+    on(document, 'click', createRipple);
+    on(document, 'touchstart', createRipple, { passive: true });
   };
 
   // ================== INITIALIZATION ==================
-  initThemeToggle();
-  initAudioPlayer();
-  initEntryOverlay();
-  initVolumeControl();
-  initRippleEffect();
+  [initTheme, initAudio, initOverlay, initVolume, initRipple]
+    .forEach(fn => { try { fn() } catch(e) { console.error(`Error in ${fn.name}:`, e) } });
 });
