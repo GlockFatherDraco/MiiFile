@@ -8,13 +8,17 @@
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
+  // ============================================
   // Utilities
+  // ============================================
   const $ = (s, root = document) => root.querySelector(s);
   const $$ = (s, root = document) => [...(root || document).querySelectorAll(s)];
   const clamp = (min, max, v) => Math.max(min, Math.min(max, v));
   const reduceMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // ============================================
   // Theme toggle
+  // ============================================
   const initTheme = () => {
     const btn = $('#tgl');
     if (!btn) return;
@@ -35,7 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  // ============================================
   // Audio player
+  // ============================================
   const initAudio = () => {
     const player = $('audio');
     if (!player) return;
@@ -45,7 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
       : player.addEventListener('canplay', () => player.play(), { once: true });
   };
 
+  // ============================================
   // Entry overlay
+  // ============================================
   const initOverlay = () => {
     $('#entryOverlay')?.addEventListener('click', function() {
       this.classList.add('fade-out');
@@ -54,7 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { once: true });
   };
 
+  // ============================================
   // Volume control
+  // ============================================
   const initVolume = () => {
     const btn = $('#msc');
     const capsule = $('.msc-capsule');
@@ -110,7 +120,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  // ============================================
   // Ripple effect
+  // ============================================
   const initRipple = () => {
     const excluded = ['#msc', '#tgl', '.msc-capsule', '.copyright-chip'];
     document.addEventListener('pointerdown', e => {
@@ -130,7 +142,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   };
 
+  // ============================================
   // Initialize all components
+  // ============================================
   [initTheme, initAudio, initOverlay, initVolume, initRipple].forEach(fn => {
     try { fn() } catch(e) { console.error(`Error in ${fn.name}:`, e) }
   });
