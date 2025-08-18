@@ -20,8 +20,7 @@
   <title>GlockFatherDraco - Profile Card</title>
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="assets/images/profile.png">
-  <link rel="shortcut icon" type="image/png" href="assets/images/profile.png">
+  <link rel="icon" href="assets/images/profile.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/images/profile.png">
 
   <!-- Preload Critical Resources -->
@@ -29,13 +28,13 @@
 
   <!-- Set theme ASAP to avoid FOUC -->
   <script>
-    (function setInitialTheme() {
+    (function() {
       try {
-        var stored = localStorage.getItem('theme');
-        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        var theme = stored || (prefersDark ? 'dark' : 'light');
-        document.documentElement.setAttribute('data-theme', theme);
-      } catch (e) {}
+        document.documentElement.setAttribute('data-theme',
+          localStorage.getItem('theme') || 
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+        );
+      } catch(e) {}
     })();
   </script>
 
@@ -51,7 +50,7 @@
 
   <!-- Page Controls -->
   <nav role="navigation" aria-label="Page controls">
-    <button id="tgl" aria-label="Toggle dark/light mode" type="button">
+    <button id="tgl" aria-label="Toggle dark/light mode">
       <svg class="sun" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <circle cx="12" cy="12" r="5"/>
         <line x1="12" y1="1" x2="12" y2="3"/>
@@ -68,7 +67,7 @@
       </svg>
     </button>
 
-    <button id="msc" aria-label="Music control" type="button" aria-expanded="false" aria-controls="volumeCapsule">
+    <button id="msc" aria-label="Music control" aria-expanded="false" aria-controls="volumeCapsule">
       <svg class="speaker" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <rect x="3" y="8" width="5" height="8" rx="2"/>
         <polygon points="8,10 14,6 14,18 8,14"/>
@@ -82,7 +81,7 @@
       </svg>
     </button>
 
-    <div id="volumeCapsule" class="msc-capsule" aria-label="Volume control" role="slider" aria-orientation="vertical" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" aria-valuetext="50%" aria-hidden="true">
+    <div id="volumeCapsule" class="msc-capsule" aria-label="Volume control" role="slider" aria-orientation="vertical" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" aria-valuetext="50%" hidden>
       <div class="msc-capsule-fill"></div>
     </div>
   </nav>
@@ -146,5 +145,20 @@
 
   <!-- JavaScript -->
   <script src="js/app.js" defer></script>
+  
+  <!-- Social links delay script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const socialLinks = document.querySelectorAll('.social-link');
+      socialLinks.forEach(link => {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          setTimeout(() => {
+            window.open(link.href, '_blank', 'noopener,noreferrer');
+          }, 1000);
+        });
+      });
+    });
+  </script>
 </body>
 </html>
