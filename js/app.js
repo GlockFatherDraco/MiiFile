@@ -70,15 +70,15 @@ addEventListener('DOMContentLoaded', () => {
   // ===================================================
   // Social links delay
   // ===================================================
-  const initSocialLinksDelay = () => {
+  function initSocialLinksDelay() {
     $$('.social-link').forEach(a => {
-      a.onclick = e => {
+      a.addEventListener('click', (e) => {
         e.preventDefault();
-        setTimeout(() => open(a.href, '_blank', 'noopener,noreferrer'), 500);
-      };
+        const href = a.href;
+        setTimeout(() => window.open(href, '_blank', 'noopener,noreferrer'), 500);
+      });
     });
-  };
-
+  }
   // ===================================================
   // Volume control
   // ===================================================
