@@ -41,7 +41,7 @@
   --social-svg-size-small: 0.9rem;
   
   --control-button-size: 3rem;
-  --control-icon-size: 1.2rem; /* Unified icon size */
+  --control-icon-size: 1.2rem;
   --control-button-top: 1.25rem;
   --control-button-side: 1.25rem;
   
@@ -49,13 +49,11 @@
   --music-capsule-height-mobile: 7.5rem;
   --music-capsule-height-small: 6.6rem;
   
-  /* Shape */
-  --border-radius-card: 24px; /* Updated to 24px */
+  /* Shape - Consistent across devices */
+  --border-radius-card: 24px;
   --border-radius-social: 50%;
   --border-radius-copyright: 25px;
   --music-border-radius: 1.4rem;
-  --music-border-radius-mobile: 1.25rem;
-  --music-border-radius-small: 1.1rem;
   
   /* Entry System */
   --entry-bg-light: rgba(255, 255, 255, 0.95);
@@ -70,6 +68,9 @@
   --ripple-z: 999;
   --ripple-duration: 0.6s;
   --ripple-scale: 4;
+  
+  /* Card Width */
+  --card-width: 400px;
 }
 
 /* =====================
@@ -109,9 +110,9 @@ body {
    Profile Card
    ===================== */
 .crd {
-  max-inline-size: 400px;
+  max-inline-size: var(--card-width);
   width: 100%;
-  padding: 1.8rem 2.5rem; /* Reduced vertical padding */
+  padding: 1.8rem 2.5rem;
   background-color: var(--cbg);
   border: 1px solid var(--bd);
   border-radius: var(--border-radius-card);
@@ -123,7 +124,7 @@ body {
 }
 
 /* Tighter card spacing */
-.img-cnt { margin-block-end: 1rem; } /* Reduced from 1.25rem */
+.img-cnt { margin-block-end: 1rem; }
 .img {
   width: 110px;
   height: 110px;
@@ -136,7 +137,7 @@ body {
 .nm {
   font-size: 1.8rem;
   font-weight: 700;
-  margin-block-end: 0.5rem; /* Reduced from 0.75rem */
+  margin-block-end: 0.5rem;
   line-height: 1.25;
 }
 
@@ -154,7 +155,7 @@ body {
   justify-content: center;
   gap: 0.8rem;
   flex-wrap: wrap;
-  margin-block-start: 1.25rem; /* Reduced from 1.5rem */
+  margin-block-start: 1.25rem;
 }
 
 .social-link {
@@ -194,7 +195,7 @@ body {
   place-items: center;
   background-color: var(--tglbg);
   border: 2px solid var(--tglbd);
-  border-radius: 50%;
+  border-radius: var(--border-radius-social);
   color: var(--tx);
   cursor: pointer;
   transition: transform var(--transition-base), box-shadow var(--transition-base);
@@ -265,7 +266,7 @@ body {
 }
 
 /* =====================
-   Copyright
+   Copyright Card
    ===================== */
 .copyright-rail {
   position: fixed;
@@ -280,7 +281,7 @@ body {
   bottom: 1rem;
   left: 50%;
   transform: translateX(-50%) translateY(100%);
-  max-inline-size: 380px;
+  max-inline-size: var(--card-width); /* Same width as main card */
   width: calc(100% - 2rem);
   z-index: 1000;
   background-color: var(--cbg);
@@ -435,12 +436,15 @@ body {
   :root {
     --control-button-size: 2.8rem;
     --control-button-top: 1.25rem;
-    --border-radius-card: 20px;
   }
 
   .crd { 
     padding: 1.6rem 2rem; 
-    max-inline-size: 90vw;
+    max-inline-size: min(90vw, var(--card-width));
+  }
+  
+  .copyright-chip {
+    max-inline-size: min(90vw, var(--card-width));
   }
   
   .img { width: 100px; height: 100px; }
@@ -454,12 +458,15 @@ body {
   :root {
     --control-button-size: 2.5rem;
     --control-button-top: 1rem;
-    --border-radius-card: 18px;
   }
 
   .crd { 
     padding: 1.4rem 1.6rem; 
-    max-inline-size: 95vw;
+    max-inline-size: min(95vw, var(--card-width));
+  }
+  
+  .copyright-chip {
+    max-inline-size: min(95vw, var(--card-width));
   }
   
   .img { width: 90px; height: 90px; }
@@ -482,12 +489,15 @@ body {
   :root {
     --control-button-size: 2.2rem;
     --control-button-top: 0.75rem;
-    --border-radius-card: 16px;
   }
 
   .crd { 
     padding: 1.2rem 1.3rem; 
-    max-inline-size: 98vw;
+    max-inline-size: min(98vw, var(--card-width));
+  }
+  
+  .copyright-chip {
+    max-inline-size: min(98vw, var(--card-width));
   }
   
   .img { width: 80px; height: 80px; }
