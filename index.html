@@ -26,20 +26,11 @@
   <!-- Preload Critical Resources -->
   <link rel="preload" href="assets/images/profile.png" as="image">
 
-  <!-- Set theme ASAP to avoid FOUC -->
-  <script>
-    (function() {
-      try {
-        document.documentElement.setAttribute('data-theme',
-          localStorage.getItem('theme') || 
-          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-        );
-      } catch(e) {}
-    })();
-  </script>
-
   <!-- CSS: Bundled Styles -->
   <link rel="stylesheet" href="css/main.css">
+  
+  <!-- JavaScript -->
+  <script src="js/app.js" defer></script>
 </head>
 
 <body>
@@ -142,23 +133,5 @@
       </p>
     </aside>
   </footer>
-
-  <!-- JavaScript -->
-  <script src="js/app.js" defer></script>
-  
-  <!-- Social links delay script -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const socialLinks = document.querySelectorAll('.social-link');
-      socialLinks.forEach(link => {
-        link.addEventListener('click', e => {
-          e.preventDefault();
-          setTimeout(() => {
-            window.open(link.href, '_blank', 'noopener,noreferrer');
-          }, 1000);
-        });
-      });
-    });
-  </script>
 </body>
 </html>
