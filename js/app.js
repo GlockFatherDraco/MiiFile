@@ -1,4 +1,27 @@
+// Set theme ASAP to avoid FOUC
+(function() {
+  try {
+    document.documentElement.setAttribute('data-theme',
+      localStorage.getItem('theme') || 
+      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+  } catch(e) {}
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
+  // ================== SOCIAL LINKS DELAY ==================
+  const initSocialLinksDelay = () => {
+    const socialLinks = document.querySelectorAll('.social-link');
+    socialLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const href = this.href;
+        setTimeout(() => {
+          window.open(href, '_blank', 'noopener,noreferrer');
+        }, 1000);
+      });
+    });
+  };
+
   // ================== UTILITIES ==================
   const $ = (s, root = document) => root.querySelector(s);
   const on = (el, ev, fn, opts) => el?.addEventListener(ev, fn, opts);
@@ -75,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
       isOpen = !isOpen;
       capsule.classList.toggle('open', isOpen);
       btn.setAttribute('aria-expanded', isOpen);
-      capsule.setAttribute('aria-hidden', !isOpen);
+      capsule.hidden = !isOpen;
       if (isOpen) capsule.focus();
     };
 
@@ -91,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize volume
     setVolume(savedVol);
     btn.setAttribute('aria-expanded', 'false');
-    capsule.setAttribute('aria-hidden', 'true');
+    capsule.hidden = true;
 
     // Event handlers
     on(btn, 'click', (e) => e.stopPropagation() || toggleUI());
@@ -146,6 +169,6 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // ================== INITIALIZATION ==================
-  [initTheme, initAudio, initOverlay, initVolume, initRipple]
+  [initTheme, initAudio, initOverlay, initVolume, initRipple, initSocialLinksDelay]
     .forEach(fn => { try { fn() } catch(e) { console.error(`Error in ${fn.name}:`, e) } });
 });
