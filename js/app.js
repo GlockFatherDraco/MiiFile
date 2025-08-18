@@ -13,13 +13,17 @@
 // Main initialization
 // ===================================================
 addEventListener('DOMContentLoaded', () => {
+  // ===================================================
   // Utilities
+  // ===================================================
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const clamp = (min, max, v) => Math.max(min, Math.min(max, v));
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // ===================================================
   // Theme toggle
+  // ===================================================
   const initTheme = () => {
     const btn = $('#tgl');
     if (!btn) return;
@@ -40,7 +44,9 @@ addEventListener('DOMContentLoaded', () => {
     };
   };
 
+  // ===================================================
   // Audio player
+  // ===================================================
   const initAudio = () => {
     const player = $('audio');
     if (!player) return;
@@ -50,7 +56,9 @@ addEventListener('DOMContentLoaded', () => {
       : player.oncanplay = () => player.play();
   };
 
+  // ===================================================
   // Entry overlay
+  // ===================================================
   const initOverlay = () => {
     $('#entryOverlay')?.addEventListener('click', function() {
       this.classList.add('fade-out');
@@ -59,7 +67,21 @@ addEventListener('DOMContentLoaded', () => {
     }, { once: true });
   };
 
+  // ===================================================
+  // Social links delay
+  // ===================================================
+  const initSocialLinksDelay = () => {
+    $$('.social-link').forEach(a => {
+      a.onclick = e => {
+        e.preventDefault();
+        setTimeout(() => open(a.href, '_blank', 'noopener,noreferrer'), 500);
+      };
+    });
+  };
+
+  // ===================================================
   // Volume control
+  // ===================================================
   const initVolume = () => {
     const btn = $('#msc'), capsule = $('.msc-capsule'), 
           fill = $('.msc-capsule-fill', capsule), player = $('audio');
@@ -112,7 +134,9 @@ addEventListener('DOMContentLoaded', () => {
     };
   };
 
+  // ===================================================
   // Ripple effect
+  // ===================================================
   const initRipple = () => {
     const excluded = ['#msc', '#tgl', '.msc-capsule', '.copyright-chip'];
     document.onpointerdown = e => {
@@ -128,8 +152,9 @@ addEventListener('DOMContentLoaded', () => {
     };
   };
 
+  // ===================================================
   // Initialize all components
-  [initTheme, initAudio, initOverlay, initVolume, initRipple].forEach(fn => {
-    try { fn() } catch(e) { console.error(`Error in ${fn.name}:`, e) }
-  });
+  // ===================================================
+  [initTheme, initAudio, initOverlay, initVolume, initRipple, initSocialLinksDelay]
+    .forEach(fn => { try { fn() } catch(e) { console.error(`Error in ${fn.name}:`, e) } });
 });
