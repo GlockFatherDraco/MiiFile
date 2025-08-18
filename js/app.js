@@ -75,7 +75,7 @@ addEventListener('DOMContentLoaded', () => {
       a.onclick = e => {
         e.preventDefault();
         const href = a.href;
-        setTimeout(() => window.open(href, '_blank', 'noopener,noreferrer'), 1000);
+        setTimeout(() => window.open(href, '_blank', 'noopener,noreferrer'), 700);
       };
     });
   };
