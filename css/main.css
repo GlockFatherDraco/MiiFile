@@ -21,7 +21,6 @@
   --sh: 0 10px 30px rgba(0, 0, 0, 0.1);
   --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
   --shadow-card-hover: 0 20px 40px rgba(0, 0, 0, 0.1);
-  --music-capsule-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
   
   /* Controls */
   --tglbg: #f5f5f5;
@@ -35,10 +34,6 @@
   /* Sizing */
   --social-icon-size: 2.5rem;
   --social-svg-size: 1.1rem;
-  --social-icon-size-mobile: 2.25rem;
-  --social-svg-size-mobile: 1rem;
-  --social-icon-size-small: 2rem;
-  --social-svg-size-small: 0.9rem;
   
   --control-button-size: 3rem;
   --control-icon-size: 1.2rem;
@@ -46,37 +41,35 @@
   --control-button-side: 1.25rem;
   
   --music-capsule-height: 8.5rem;
-  --music-capsule-height-mobile: 7.5rem;
-  --music-capsule-height-small: 6.6rem;
   
-  /* Shape - Consistent across devices */
+  /* Shape */
   --border-radius-card: 24px;
   --border-radius-social: 50%;
   --border-radius-copyright: 25px;
   --music-border-radius: 1.4rem;
   
-  /* Entry System */
-  --entry-bg-light: rgba(255, 255, 255, 0.95);
-  --entry-bg-dark: rgba(0, 0, 0, 0.95);
-  --entry-blur: 32px;
-  --entry-z-index: 1000;
-  --entry-font-size: clamp(1.25rem, 4vw, 2rem);
-  --entry-font-weight: 300;
+  /* Card Width */
+  --card-width: 400px;
   
   /* Ripple */
   --ripple-bg: rgba(255, 255, 255, 0.3);
   --ripple-z: 999;
   --ripple-duration: 0.6s;
   --ripple-scale: 4;
-  
-  /* Card Width */
-  --card-width: 400px;
 }
 
 /* =====================
-   Base & Layout
+   Base & Reset
    ===================== */
-html { block-size: 100%; }
+html, body {
+  overflow: hidden;
+  touch-action: none;
+  block-size: 100%;
+  max-block-size: 100%;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
 
 * {
   margin: 0;
@@ -84,13 +77,14 @@ html { block-size: 100%; }
   box-sizing: border-box;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  -webkit-user-zoom: none;
+  user-zoom: none;
 }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
   color: var(--tx);
   line-height: 1.6;
-  min-block-size: 100vh;
   background: var(--bg);
   display: grid;
   place-items: center;
@@ -100,6 +94,9 @@ body {
 
 ::selection, ::-moz-selection { background: transparent; }
 
+/* =====================
+   Layout
+   ===================== */
 .crd-cnt {
   width: 100%;
   display: grid;
@@ -123,7 +120,6 @@ body {
   z-index: 10;
 }
 
-/* Tighter card spacing */
 .img-cnt { margin-block-end: 1rem; }
 .img {
   width: 110px;
@@ -198,7 +194,7 @@ body {
   border-radius: var(--border-radius-social);
   color: var(--tx);
   cursor: pointer;
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  transition: var(--transition-base);
 }
 
 #tgl { top: var(--control-button-top); right: var(--control-button-side); }
@@ -238,7 +234,7 @@ body {
   background-color: var(--cbg);
   border: 2px solid var(--bd);
   border-radius: var(--music-border-radius);
-  box-shadow: var(--music-capsule-shadow);
+  box-shadow: var(--sh);
   cursor: pointer;
   opacity: 0;
   pointer-events: none;
@@ -268,20 +264,12 @@ body {
 /* =====================
    Copyright Card
    ===================== */
-.copyright-rail {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 40px;
-  z-index: 100;
-}
-
 .copyright-chip {
   position: fixed;
   bottom: 1rem;
   left: 50%;
   transform: translateX(-50%) translateY(100%);
-  max-inline-size: var(--card-width); /* Same width as main card */
+  max-inline-size: var(--card-width);
   width: calc(100% - 2rem);
   z-index: 1000;
   background-color: var(--cbg);
@@ -317,9 +305,9 @@ body {
   inset: 0;
   display: grid;
   place-items: center;
-  z-index: var(--entry-z-index);
-  background: var(--entry-bg-light);
-  backdrop-filter: blur(var(--entry-blur));
+  z-index: 1000;
+  background: var(--bg);
+  backdrop-filter: blur(32px);
   cursor: pointer;
   transition: var(--transition-base);
 }
@@ -327,8 +315,8 @@ body {
 .entry-overlay.fade-out { opacity: 0; visibility: hidden; }
 
 .entry-text {
-  font-size: var(--entry-font-size);
-  font-weight: var(--entry-font-weight);
+  font-size: clamp(1.25rem, 4vw, 2rem);
+  font-weight: 300;
   text-align: center;
 }
 
@@ -340,7 +328,7 @@ body {
 .ripple {
   position: fixed;
   border-radius: 50%;
-  z-index: var(--ripple-z);
+  z-index: 999;
   background: var(--ripple-bg);
   pointer-events: none;
   transform: scale(0);
@@ -360,7 +348,6 @@ body {
   --tglbg: #262626;
   --tglbd: #686868;
   --ripple-bg: rgba(255, 255, 255, 0.2);
-  --entry-bg-light: var(--entry-bg-dark);
 }
 
 /* =====================
@@ -394,8 +381,6 @@ body {
   outline-offset: 2px;
 }
 
-/* Copyright Visibility */
-.copyright-rail:hover ~ .copyright-chip,
 .copyright-chip:hover,
 .copyright-chip:focus-within {
   opacity: 1;
@@ -431,86 +416,39 @@ body {
 /* =====================
    Responsive Adjustments
    ===================== */
-/* Tablets */
 @media (max-width: 768px) {
   :root {
     --control-button-size: 2.8rem;
     --control-button-top: 1.25rem;
   }
 
-  .crd { 
-    padding: 1.6rem 2rem; 
+  .crd, .copyright-chip { 
     max-inline-size: min(90vw, var(--card-width));
   }
-  
-  .copyright-chip {
-    max-inline-size: min(90vw, var(--card-width));
-  }
-  
-  .img { width: 100px; height: 100px; }
-  .nm { font-size: 1.65rem; }
-  .social-icons { margin-block-start: 1.1rem; }
-  .msc-capsule { block-size: var(--music-capsule-height-mobile); }
 }
 
-/* Phones */
 @media (max-width: 480px) {
   :root {
     --control-button-size: 2.5rem;
     --control-button-top: 1rem;
+    --social-icon-size: 2.25rem;
+    --social-svg-size: 1rem;
   }
 
-  .crd { 
-    padding: 1.4rem 1.6rem; 
+  .crd, .copyright-chip { 
     max-inline-size: min(95vw, var(--card-width));
-  }
-  
-  .copyright-chip {
-    max-inline-size: min(95vw, var(--card-width));
-  }
-  
-  .img { width: 90px; height: 90px; }
-  .nm { font-size: 1.5rem; }
-  .bio { font-size: 0.95rem; }
-  
-  .social-link {
-    inline-size: var(--social-icon-size-mobile);
-    block-size: var(--social-icon-size-mobile);
-  }
-  
-  .social-link svg {
-    inline-size: var(--social-svg-size-mobile);
-    block-size: var(--social-svg-size-mobile);
   }
 }
 
-/* Small phones */
 @media (max-width: 360px) {
   :root {
     --control-button-size: 2.2rem;
     --control-button-top: 0.75rem;
+    --social-icon-size: 2rem;
+    --social-svg-size: 0.9rem;
   }
 
-  .crd { 
-    padding: 1.2rem 1.3rem; 
+  .crd, .copyright-chip { 
     max-inline-size: min(98vw, var(--card-width));
-  }
-  
-  .copyright-chip {
-    max-inline-size: min(98vw, var(--card-width));
-  }
-  
-  .img { width: 80px; height: 80px; }
-  .nm { font-size: 1.4rem; }
-  .bio { font-size: 0.9rem; }
-  
-  .social-link {
-    inline-size: var(--social-icon-size-small);
-    block-size: var(--social-icon-size-small);
-  }
-  
-  .social-link svg {
-    inline-size: var(--social-svg-size-small);
-    block-size: var(--social-svg-size-small);
   }
 }
