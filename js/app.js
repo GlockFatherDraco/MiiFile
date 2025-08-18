@@ -1,36 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
   // ================== UTILITIES ==================
-  const $ = s => document.querySelector(s);
-  const on = (el, ev, fn, opt) => el?.addEventListener(ev, fn, opt);
+  const $ = (s, root = document) => root.querySelector(s);
+  const on = (el, ev, fn, opts) => el?.addEventListener(ev, fn, opts);
   const clamp = (min, max, val) => Math.max(min, Math.min(max, val));
-  const noMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // ================== INITIALIZATION ==================
-  const init = () => {
-    try { initTheme() } catch(e) { console.error('Theme error:', e) }
-    try { initAudio() } catch(e) { console.error('Audio error:', e) }
-    try { initOverlay() } catch(e) { console.error('Overlay error:', e) }
-    try { initVolume() } catch(e) { console.error('Volume error:', e) }
-    try { initRipple() } catch(e) { console.error('Ripple error:', e) }
-  };
+  const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ================== THEME TOGGLE ==================
   const initTheme = () => {
-    const btn = $('#tgl');
+    const btn = $('#tgl'), root = document.documentElement;
     if (!btn) return;
-    
-    const root = document.documentElement;
-    const sysTheme = () => matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    const setTheme = theme => {
+
+    const setTheme = (theme) => {
       theme = theme === 'dark' ? 'dark' : 'light';
       root.setAttribute('data-theme', theme);
       localStorage.setItem('theme', theme);
     };
 
+    const sysTheme = () => matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     setTheme(localStorage.getItem('theme') || sysTheme());
-    on(btn, 'click', () => setTheme(root.dataset.theme === 'dark' ? 'light' : 'dark'));
-    on(matchMedia('(prefers-color-scheme: dark)'), 'change', e => {
-      !localStorage.theme && setTheme(e.matches ? 'dark' : 'light');
+
+    on(btn, 'click', () => setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+    on(matchMedia('(prefers-color-scheme: dark)'), 'change', (e) => {
+      if (!localStorage.getItem('theme')) setTheme(e.matches ? 'dark' : 'light');
     });
   };
 
@@ -39,9 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const player = $('audio');
     if (!player) return;
 
-    window.startMusic = () => player.readyState >= 2 
-      ? player.play().catch(() => {})
-      : on(player, 'canplay', () => player.play().catch(() => {}), { once: true });
+    window.startMusic = () => {
+      player.readyState >= 2 
+        ? player.play().catch(() => {})
+        : on(player, 'canplay', () => player.play().catch(() => {}), { once: true });
+    };
   };
 
   // ================== ENTRY OVERLAY ==================
@@ -51,8 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     on(overlay, 'click', () => {
       overlay.classList.add('fade-out');
+      on(overlay, 'transitionend', () => overlay.remove(), { once: true });
       window.startMusic?.();
-      setTimeout(() => overlay.remove(), 500); // Fixed removal timing
     });
   };
 
@@ -63,71 +56,85 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!btn || !capsule || !fill || !player) return;
 
     let isOpen = false, isDragging = false;
-    const setVolume = vol => {
+    const savedVol = clamp(0, 1, parseFloat(localStorage.getItem('volume') || 0.5));
+    
+    const setVolume = (vol) => {
       vol = clamp(0, 1, vol);
+      const percent = Math.round(vol * 100);
+      
       player.volume = vol;
       fill.style.height = `${capsule.clientHeight * vol}px`;
       btn.classList.toggle('muted', vol < 0.01);
-      localStorage.setItem('volume', vol);
+      
+      capsule.setAttribute('aria-valuenow', percent);
+      capsule.setAttribute('aria-valuetext', `${percent}%`);
+      localStorage.setItem('volume', vol.toString());
     };
 
-    setVolume(clamp(0, 1, parseFloat(localStorage.volume) || 0.5);
-    btn.ariaExpanded = 'false';
-    capsule.ariaHidden = 'true';
-
-    on(btn, 'click', e => {
-      e.stopPropagation();
+    const toggleUI = () => {
       isOpen = !isOpen;
       capsule.classList.toggle('open', isOpen);
-      btn.ariaExpanded = isOpen;
-      capsule.ariaHidden = !isOpen;
-      isOpen && capsule.focus();
-    });
+      btn.setAttribute('aria-expanded', isOpen);
+      capsule.setAttribute('aria-hidden', !isOpen);
+      if (isOpen) capsule.focus();
+    };
 
-    // Drag handling
-    const handleDrag = e => {
-      const y = (e.touches?.[0] || e).clientY;
+    const handleDrag = (e) => {
+      const y = e.touches?.[0]?.clientY ?? e.clientY;
       if (typeof y !== 'number') return;
       
       const rect = capsule.getBoundingClientRect();
-      setVolume(1 - clamp(0, 1, (y - rect.top) / rect.height));
+      const posY = clamp(rect.top, rect.bottom, y);
+      setVolume(1 - (posY - rect.top) / rect.height);
     };
 
-    const startDrag = e => {
+    // Initialize volume
+    setVolume(savedVol);
+    btn.setAttribute('aria-expanded', 'false');
+    capsule.setAttribute('aria-hidden', 'true');
+
+    // Event handlers
+    on(btn, 'click', (e) => e.stopPropagation() || toggleUI());
+    
+    // Drag handling
+    const startDrag = (e) => {
       isDragging = true;
       e.preventDefault();
       handleDrag(e);
     };
-
+    
     on(capsule, 'mousedown', startDrag);
     on(capsule, 'touchstart', startDrag, { passive: false });
-
-    const moveHandler = e => isDragging && handleDrag(e);
-    on(document, 'mousemove', moveHandler);
-    on(document, 'touchmove', moveHandler, { passive: false });
-
-    const endDrag = () => isDragging = false;
-    on(document, 'mouseup', endDrag);
-    on(document, 'touchend', endDrag);
-
-    on(document, 'click', e => {
-      isOpen && !capsule.contains(e.target) && !btn.contains(e.target) && 
-        btn.click();
+    
+    on(document, 'mousemove', (e) => isDragging && handleDrag(e));
+    on(document, 'touchmove', (e) => isDragging && (e.preventDefault() || handleDrag(e)), { passive: false });
+    
+    on(document, 'mouseup', () => isDragging = false);
+    on(document, 'touchend', () => isDragging = false);
+    
+    // Close when clicking outside
+    on(document, 'click', (e) => {
+      if (isOpen && !capsule.contains(e.target) && !btn.contains(e.target)) toggleUI();
     });
   };
 
   // ================== RIPPLE EFFECT ==================
   const initRipple = () => {
-    const createRipple = e => {
-      if (e.target.closest('#msc, #tgl, .msc-capsule, .copyright-chip') || noMotion()) return;
+    const createRipple = (e) => {
+      if (e.target.closest('#msc, #tgl, .msc-capsule, .copyright-chip') || reduceMotion()) return;
       
-      const { clientX, clientY } = e.touches?.[0] || e;
-      if (typeof clientX !== 'number') return;
+      const { clientX, clientY } = e.touches?.[0] ?? e;
+      if (typeof clientX !== 'number' || typeof clientY !== 'number') return;
 
       const size = Math.max(window.innerWidth, window.innerHeight) * 0.025;
       const ripple = Object.assign(document.createElement('span'), {
         className: 'ripple',
-        style: `width:${size}px;height:${size}px;left:${clientX - size/2}px;top:${clientY - size/2}px`
+        style: `
+          width: ${size}px;
+          height: ${size}px;
+          left: ${clientX - size/2}px;
+          top: ${clientY - size/2}px;
+        `
       });
 
       on(ripple, 'animationend', () => ripple.remove());
@@ -138,6 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     on(document, 'touchstart', createRipple, { passive: true });
   };
 
-  // Start initialization
-  init();
+  // ================== INITIALIZATION ==================
+  [initTheme, initAudio, initOverlay, initVolume, initRipple]
+    .forEach(fn => { try { fn() } catch(e) { console.error(`Error in ${fn.name}:`, e) } });
 });
